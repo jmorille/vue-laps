@@ -53,7 +53,6 @@ jobs:
 
     - name: Extract Maven Info
       run: |
-        ls -al target
         echo "MAVEN_GROUP_ID=$( mvn help:evaluate -Dexpression=project.groupId -q -DforceStdout )"        >> $GITHUB_ENV
         echo "MAVEN_ARTIFACT_ID=$( mvn help:evaluate -Dexpression=project.artifactId -q -DforceStdout )"  >> $GITHUB_ENV
         echo "MAVEN_VERSION=$( mvn help:evaluate -Dexpression=project.version -q -DforceStdout )"         >> $GITHUB_ENV
