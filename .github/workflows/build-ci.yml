@@ -96,10 +96,9 @@ jobs:
 
     - name: Extract Maven Info
       run: |
-        export VERSION=$( mvn help:evaluate -Dexpression=project.version -q -DforceStdout )
-        export ARTIFACT_ID=$( mvn help:evaluate -Dexpression=project.artifactId -q -DforceStdout ) 
-        echo "::set-output name=version::$VERSION"
-      id: get_version
+        echo "VERSION=$( mvn help:evaluate -Dexpression=project.version -q -DforceStdout )"         >> $GITHUB_ENV
+        echo "GROUP_ID=$( mvn help:evaluate -Dexpression=project.groupId -q -DforceStdout )"        >> $GITHUB_ENV
+        echo "ARTIFACT_ID=$( mvn help:evaluate -Dexpression=project.artifactId -q -DforceStdout )"  >> $GITHUB_ENV
 
 
     - name: Build and push
