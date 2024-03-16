@@ -1,10 +1,10 @@
 ARG HTTPD_VERSION="2.4"
 
-
+# Build Images
+# #######################
 FROM busybox AS BUILD 
 ARG  MAVEN_ARTIFACT_ID
 ARG  MAVEN_VERSION
-
 ADD target/${MAVEN_ARTIFACT_ID}-${MAVEN_VERSION}-app-htdocs.tar.gz /DATA/${MAVEN_ARTIFACT_ID}/
 ADD target/${MAVEN_ARTIFACT_ID}-${MAVEN_VERSION}-app-resources-docker.tar.gz /DATA/${MAVEN_ARTIFACT_ID}/
 
