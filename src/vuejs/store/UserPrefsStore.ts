@@ -8,7 +8,7 @@ import { useLocalStorage }    from "@vueuse/core";
 export const KEY_USERPREF_THEME = 'userpref_theme';
 export const VALUE_USERPREF_THEME_DEFAULT = 'light';
 
-export const useUserPrefsStore = defineStore('UserPrefsStore', () => {
+export const useUserPrefsStore = defineStore('user-prefs', () => {
 
   const theme = useTheme();
 

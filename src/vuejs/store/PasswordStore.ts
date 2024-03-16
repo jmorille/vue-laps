@@ -1,5 +1,5 @@
 import {defineStore} from "pinia";
-import {inject, ref} from "vue";
+import { inject, ref, watch } from 'vue';
 import dayjs from "dayjs";
 
 // Type
@@ -10,26 +10,25 @@ import type {ServerVO} from "@/model/api/ServerVO";
 import type {PasswordVO} from "@/model/api/PasswordVO";
 import axios from "axios";
 
-export const usePasswordStore = defineStore('PasswordStore', () => {
+export const usePasswordStore = defineStore('password', () => {
     const logger: Logger = (inject('logger') as RootLogger).getLogger('PasswordStore');
-    const serverList:Ref<ServerVO[]> = ref([
-        { host : "server-01", name: "Name of server-01", description: `Une super description de server-01`},
-        { host : "server-02", name: "Name of server-02", description: `Une super description de server-02`},
-        { host : "server-03", name: "Name of server-03", description: `Une super description de server-03`},
-        { host : "server-04", name: "Name of server-04", description: `Une super description de server-04`}
-    ]);
+    const serverList:Ref<ServerVO[]> =  ref([]);
 
     const error: Ref<Error | DisplayError | undefined> = ref();
 
 
     function fetchServerList(): Promise<ServerVO[]> {
         logger.info(`GET Server List for password`);
-        return Promise.resolve().then(() => { 
-            return serverList.value;
-        }).then(servers => {
-            serverList.value = servers;
-            return servers;
-        });
+        return axios.get(`/api/server-password.json`,  { withCredentials: true } )
+          .then( (res) => res.data)
+          .then( (data:ServerVO[]) => {
+              serverList.value = data;
+              return data;
+          }).catch(err => {
+            error.value = err;
+            logger.error(`Error fetch /api/server-password.json : ${err.message}`, err);
+            return err;
+          });
     }
 
     function getPassword(host: string|undefined): Promise<PasswordVO> {
@@ -44,22 +43,15 @@ export const usePasswordStore = defineStore('PasswordStore', () => {
        }
         //
         logger.info(`GET password for host=${host}`);
-        // TODO   axios.defaults.withCredentials = true
         return axios.get(`/bfflaps/password.sh?${host}`,  { withCredentials: true } ) // TODO { params: { host}}
             .then( (res) => res.data)
             .then( (data:PasswordVO) => {
                 return {server, ...data};
-            });
-        // return Promise.resolve().then(()=> {
-        //     const validityDuration = dayjs.duration({ minutes: 12 });
-        //     const validity = dayjs().add(validityDuration);
-        //     const pass: PasswordVO = {
-        //         host,server,
-        //         password: `Password de ${host}`,
-        //         validity: validity.toDate()
-        //     }
-        //     return pass;
-        // });
+            }).catch( (err) => {
+            error.value = err;
+            logger.error(`Error fetch /bfflaps/password.sh?${host} : ${err.message}`, err);
+            return err;
+          });
     }
 
     return {

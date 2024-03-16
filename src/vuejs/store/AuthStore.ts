@@ -12,7 +12,7 @@ import type { KeycloakError, VueKeycloakInstance } from '@dsb-norge/vue-keycloak
 // Constant
 const keycloakSymbol = VueKeyCloak.KeycloakSymbol;
 
-export const useAuthStore = defineStore('AuthStore', () => {
+export const useAuthStore = defineStore('auth', () => {
   const logger: Logger = (inject('logger') as RootLogger).getLogger('AuthStore');
 
   const {
