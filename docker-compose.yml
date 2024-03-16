@@ -2,7 +2,8 @@ version: "3.8"
 services:
 
   laps:
-    image: jmorille/vue-laps:latest
+#    image: local/vue-laps:latest
+    image: ghcr.io/jmorille/vue-laps:master
     container_name: laps
     restart: always
     user: '33:33'
@@ -12,7 +13,7 @@ services:
       HTTPD_SERVER_NAME: "laps.localhost"
       HTTPD_SERVER_ALIAS: "127.0.0.1 localhost"
       KEYCLOAK_DOMAIN: "keycloak.home.loc:8443"
-      KEYCLOAK_CLIENT_SECRET: "L4dQDb0xhKxzpjUhhqhv3tOf8jkuSDla"
+      KEYCLOAK_CLIENT_SECRET: "M1ogV3dCwDUKkqOKZBEVxEUuSlbX1wu5"
     volumes:
       - "./logs/httpd-vuelaps:/var/log/httpd/vuelaps/"
 #      - "./src/config/apache/socle/socle-logformat.conf:/DATA/vuelaps/conf-apache/socle/socle-logformat.conf"
