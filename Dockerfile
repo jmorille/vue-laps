@@ -2,8 +2,8 @@ ARG HTTPD_VERSION="2.4"
 ARG VERSION_ID="7.4.1"
 
 FROM busybox AS BUILD
-ADD target/${ARTIFACT_ID}-${VERSION}-app-htdocs.tar.gz /DATA/${ARTIFACT_ID}/
-ADD target/${ARTIFACT_ID}-${VERSION}-app-resources-docker.tar.gz /DATA/${ARTIFACT_ID}/
+ADD target/${project.artifactId}-${project.version}-app-htdocs.tar.gz /DATA/${project.artifactId}/
+ADD target/${project.artifactId}-${project.version}-app-resources-docker.tar.gz /DATA/${project.artifactId}/
 
 
 FROM httpd:${HTTPD_VERSION}
@@ -147,7 +147,7 @@ RUN mkdir -p /var/log/httpd/vuelaps/ \
  && echo "Include /DATA/vuelaps/conf-apache/vhost-vuelaps-lan.conf" > /usr/local/apache2/conf.d/vhost-vuelaps.conf
 
 # Add Applications
-COPY --from=BUILD /DATA/${ARTIFACT_ID}/ /DATA/vuelaps/
+COPY --from=BUILD /DATA/${project.artifactId}/ /DATA/vuelaps/
 
 #USER www-data:www-data
 #USER 33
