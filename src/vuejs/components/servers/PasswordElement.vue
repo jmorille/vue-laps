@@ -12,10 +12,10 @@ import type {Logger, RootLogger} from "loglevel";
 import {useClipboard} from "@vueuse/core";
 
 // Date
-import dayjs from 'dayjs';
+import dayjs  from 'dayjs';
+import type { Dayjs } from 'dayjs';
 import duration from 'dayjs/plugin/duration';
 import relativeTime from 'dayjs/plugin/relativeTime';
-
 dayjs.extend(relativeTime);
 dayjs.extend(duration);
 
@@ -38,8 +38,8 @@ const error = ref();
 const iconClipboard = computed(() => (copied.value ? 'mdi-clipboard-check-outline' : 'mdi-clipboard-outline'));
 
 // Timer
-const now = ref(dayjs())
-let interval:number|undefined = undefined;
+const now: Ref<Dayjs> = ref(dayjs())
+let interval:NodeJS.Timer |undefined = undefined;
 
 // Validity Date Display
 const validityDate = computed(() => pass.value?.validity ? dayjs(pass.value?.validity, undefined, 'fr')  : undefined);
@@ -50,7 +50,7 @@ const validityHuman = computed(() => validityDate.value ? validityDate.value.for
 onMounted(() => {
   updatePassword(props.host);
   interval = setInterval( () => {
-    now.value = dayjs();
+      now.value = dayjs();
   }, 30000);
 });
 
