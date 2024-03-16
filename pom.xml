@@ -63,7 +63,7 @@
         <usine.url.jira>https://home.atlassian.net</usine.url.jira>-->
         <!-- <git-changelog-fromRef>${project.artifactId}-0.0.1</git-changelog-fromRef>-->
         <git-changelog-toRef>HEAD</git-changelog-toRef>
-        <dist.docker-registry.name>local</dist.docker-registry.name>
+        <dist.docker-registry.name>ghcr.io/jmorille</dist.docker-registry.name>
 
         <!-- Plugins -->
         <!-- Config -->
