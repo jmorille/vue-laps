@@ -98,8 +98,6 @@ jobs:
       uses: docker/metadata-action@v5 # v5.0.0
       with:
         images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
-        tags: |
-          type=semver,pattern={{ env.MAVEN_VERSION }}
 
 #    - name: Docker - Build
 #      run: mvn --batch-mode  docker:build -Pdocker
