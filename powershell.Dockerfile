@@ -10,6 +10,7 @@ RUN apt-get update && apt-get install -y python3
 
 # Copier le script PowerShell dans le conteneur
 COPY src/config/cgi-bin/*.ps1 /cgi-bin/
+COPY src/config/cgi-bin/*.cgi /cgi-bin/
 
 # cgi_directories This defaults to ['/cgi-bin', '/htbin']
 #  --directory /DATA/bfflaps
