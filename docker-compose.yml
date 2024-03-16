@@ -24,6 +24,14 @@ services:
     networks:
       - app-network
 
+  powershell:
+    build:
+      dockerfile: ./powershell.Dockerfile
+    container_name: powershell
+    ports:
+      - "8000:8000"
+
+
 #  php-fpm:
 #    image: php:fpm
 #    container_name: php-fpm

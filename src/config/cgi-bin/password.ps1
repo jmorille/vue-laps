@@ -1,3 +1,5 @@
+#!/opt/microsoft/powershell/7/pwsh
+
 # Vérifie si le script est exécuté en tant que CGI
 #if (-not $env:GATEWAY_INTERFACE) {
 #    Write-Output "Content-type: text/plain"
