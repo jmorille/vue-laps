@@ -2,7 +2,7 @@ version: "3.8"
 services:
 
   laps:
-    image: local/vue-laps:latest
+    image: jmorille/vue-laps:latest
     container_name: laps
     restart: always
     user: '33:33'
@@ -11,6 +11,8 @@ services:
     environment:
       HTTPD_SERVER_NAME: "laps.localhost"
       HTTPD_SERVER_ALIAS: "127.0.0.1 localhost"
+      KEYCLOAK_DOMAIN: "keycloak.home.loc:8443"
+      KEYCLOAK_CLIENT_SECRET: "L4dQDb0xhKxzpjUhhqhv3tOf8jkuSDla"
     volumes:
       - "./logs/httpd-vuelaps:/var/log/httpd/vuelaps/"
 #      - "./src/config/apache/socle/socle-logformat.conf:/DATA/vuelaps/conf-apache/socle/socle-logformat.conf"

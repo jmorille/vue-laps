@@ -85,7 +85,7 @@
         <!-- ================================= -->
         <!-- Docker configuration              -->
         <!-- ================================= -->
-        <dist.docker-registry.name>local</dist.docker-registry.name>
+        <dist.docker-registry.name>local/jmorille</dist.docker-registry.name>
         <!-- docker.pull.registry>harbor.home.loc</docker.pull.registry -->
         <docker.push.registry>ghcr.io/jmorille</docker.push.registry>
 
@@ -412,7 +412,7 @@
                                             <name>${dist.docker-registry.name}/${project.artifactId}</name>
                                             <build>
                                                 <dockerFile>${project.basedir}/Dockerfile</dockerFile>
-                                                <optimise>false</optimise>
+                                                <optimise>true</optimise>
                                                 <tags>
                                                     <tag>latest</tag>
                                                     <tag>${project.version}</tag>

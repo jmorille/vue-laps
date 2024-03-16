@@ -20,7 +20,7 @@ fi
 
 # Récupère le paramètre passé en URL
 HOSTNAME="$QUERY_STRING"
-#HOSTNAME=$(echo "$QUERY_STRING" | grep -oP '(?<=host=).*')
+#IFS='=' read -r cle HOSTNAME <<< "$QUERY_STRING"
 
 
 # Génère la date actuelle
