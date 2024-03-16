@@ -19,7 +19,7 @@ ARG APP_DIR
 # #######################
 EXPOSE 80
 VOLUME ["/var/log/httpd/vuelaps/" ]
-WORKDIR  /DATA/vuelaps
+WORKDIR  ${APP_DIR}
 
 # Apache Install
 RUN apt update \
