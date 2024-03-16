@@ -1,6 +1,3 @@
-.github
-.idea
-logs
 node_modules
 public
 src/assembly
