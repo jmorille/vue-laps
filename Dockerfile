@@ -1,5 +1,4 @@
 ARG HTTPD_VERSION="2.4"
-ARG VERSION_ID="7.4.1"
 
 FROM busybox AS BUILD
 ADD target/${project.artifactId}-${project.version}-app-htdocs.tar.gz /DATA/${project.artifactId}/

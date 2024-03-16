@@ -98,9 +98,11 @@ jobs:
       with:
         images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
 
-    - name: Build Docker
-      run: mvn --batch-mode --update-snapshots docker:build docker:push -Pdocker
+    - name: Docker - Build
+      run: mvn --batch-mode --update-snapshots docker:build -Pdocker
 
+    - name: Docker - Push
+      run: mvn --batch-mode --update-snapshots docker:push -Pdocker
 
 #    - name: Build and push
 #      uses: docker/build-push-action@v5

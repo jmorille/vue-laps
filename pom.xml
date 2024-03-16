@@ -87,7 +87,7 @@
         <!-- ================================= -->
         <dist.docker-registry.name>local</dist.docker-registry.name>
         <!-- docker.pull.registry>harbor.home.loc</docker.pull.registry -->
-        <docker.push.registry>harbor.home.loc</docker.push.registry>
+        <docker.push.registry>ghcr.io/jmorille</docker.push.registry>
 
         <!-- ================================= -->
         <!-- Project Dependencies              -->
@@ -408,12 +408,10 @@
                                             <build>
                                                 <dockerFile>${project.basedir}/Dockerfile</dockerFile>
                                                 <optimise>false</optimise>
-                                                <buildOptions>
-                                                    <env>
-                                                        <VERSION>${project.version}</VERSION>
-                                                        <ARTIFACT_ID>${project.artifactId}</ARTIFACT_ID>
-                                                    </env>
-                                                </buildOptions>
+                                                <args>
+                                                    <MAVEN_VERSION>${project.version}</MAVEN_VERSION>
+                                                    <MAVEN_ARTIFACT_ID>${project.artifactId}</MAVEN_ARTIFACT_ID>
+                                                </args>
 
                                                 <tags>
                                                     <tag>latest</tag>
