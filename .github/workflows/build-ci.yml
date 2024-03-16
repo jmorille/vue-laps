@@ -31,11 +31,12 @@ jobs:
         distribution: 'temurin'
 
     - name: Build
-    - run: mvn --batch-mode --update-snapshots package
+      run: mvn --batch-mode --update-snapshots package
 
 
     - name: Archive
-    - run: mkdir staging && cp target/*.tar.gz staging
+      run: mkdir staging && cp target/*.tar.gz staging
+
     - uses: actions/upload-artifact@v4
       with:
         name: Package
