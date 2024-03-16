@@ -28,21 +28,21 @@ jobs:
       id-token: write
 
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
 
     - name: NodeJS pnpm
-      uses: pnpm/action-setup@0609f0983b7a228f052f81ef4c3d6510cae254ad
+      uses: pnpm/action-setup@v2
       with:
-        version: 6.10.0
+        version: 6.32.9
 
     - name: NodeJS 20
-      uses: actions/setup-node@v3
+      uses: actions/setup-node@v4
       with:
         node-version: '20'
         cache: 'pnpm'
 
     - name: JDK 21
-      uses: actions/setup-java@v3
+      uses: actions/setup-java@v4
       with:
         distribution: 'temurin'
         java-version: '21'
