@@ -39,7 +39,7 @@ const iconClipboard = computed(() => (copied.value ? 'mdi-clipboard-check-outlin
 
 // Timer
 const now: Ref<Dayjs> = ref(dayjs())
-let interval:NodeJS.Timer |undefined = undefined;
+let interval:number |undefined = undefined;
 
 // Validity Date Display
 const validityDate = computed(() => pass.value?.validity ? dayjs(pass.value?.validity, undefined, 'fr')  : undefined);
@@ -49,13 +49,13 @@ const validityHuman = computed(() => validityDate.value ? validityDate.value.for
 
 onMounted(() => {
   updatePassword(props.host);
-  interval = setInterval( () => {
+  interval = window.setInterval( () => {
       now.value = dayjs();
   }, 30000);
 });
 
 onUnmounted( () => {
-  clearInterval(interval);
+  window.clearInterval(interval);
 });
 
 watch(() => props.host, async (newHost) => {
