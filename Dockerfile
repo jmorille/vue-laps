@@ -155,8 +155,8 @@ RUN mkdir -p /var/log/httpd/vuelaps/ \
 
 # Add Applications
 #COPY --from=BUILD /DATA/vue-laps/ /DATA/vuelaps/
-#ADD target/vue-laps-0.9.4-SNAPSHOT-app-htdocs.tar.gz /DATA/vuelaps/
-ADD ./target/vue-laps-0.9.4-SNAPSHOT-app-resources-docker.tar.gz /DATA/vuelaps/
+ADD target/vue-laps-0.9.4-SNAPSHOT-app-htdocs.tar.gz /DATA/vuelaps/
+ADD target/vue-laps-0.9.4-SNAPSHOT-app-resources-docker.tar.gz /DATA/vuelaps/
 
 
 #USER www-data:www-data
