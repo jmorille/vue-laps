@@ -13,7 +13,14 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
- 
+
+    permissions:
+      contents: read
+      packages: write
+      # This is used to complete the identity challenge
+      # with sigstore/fulcio when running outside of PRs.
+      id-token: write
+
     steps:
     - uses: actions/checkout@v3
 
@@ -37,9 +44,6 @@ jobs:
     - name: Build Maven
       run: mvn --batch-mode --update-snapshots package
 
-    - name: Build Docker
-      run: mvn --batch-mode --update-snapshots docker:build -Pdocker
-
     - name: Archive
       run: mkdir staging && cp target/*.tar.gz staging
 
@@ -49,3 +53,27 @@ jobs:
         name: laps-package
         path: target/*.tar.gz
         if-no-files-found: error
+
+    # Install the cosign tool except on PR
+    # https://github.com/sigstore/cosign-installer
+    - name: Registry - Install cosign
+      if: github.event_name != 'pull_request'
+      uses: sigstore/cosign-installer@6e04d228eb30da1757ee4e1dd75a0ec73a653e06 #v3.1.1
+      with:
+        cosign-release: 'v2.1.1'
+
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@f95db51fddba0c2d1ec667646a06c2ce06100226 # v3.0.0
+
+    # Login against a Docker registry except on PR
+    # https://github.com/docker/login-action
+    - name: Log into registry ${{ env.REGISTRY }}
+      if: github.event_name != 'pull_request'
+      uses: docker/login-action@343f7c4344506bcbf9b4de18042ae17996df046d # v3.0.0
+      with:
+        registry: ${{ env.REGISTRY }}
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Build Docker
+      run: mvn --batch-mode --update-snapshots docker:build -Pdocker
