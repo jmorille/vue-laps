@@ -113,8 +113,8 @@ jobs:
         cache-from: type=gha
         cache-to: type=gha,mode=max
         build-args: |
-            MAVEN_ARTIFACT_ID=${{ env.MAVEN_ARTIFACT_ID }}
-            MAVEN_VERSION=${{ env.MAVEN_VERSION }}
+            MAVEN_ARTIFACT_ID=vue-laps
+            MAVEN_VERSION=0.9.4-SNAPSHOT
    
 
 
