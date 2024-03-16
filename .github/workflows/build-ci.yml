@@ -98,20 +98,25 @@ jobs:
       with:
         images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
 
-    - name: Docker - Build
-      run: mvn --batch-mode --update-snapshots docker:build -Pdocker
+#    - name: Docker - Build
+#      run: mvn --batch-mode --update-snapshots docker:build -Pdocker
 
-    - name: Docker - Push
-      run: mvn --batch-mode --update-snapshots docker:push -Pdocker
+#    - name: Docker - Push
+#      run: mvn --batch-mode --update-snapshots docker:push -Pdocker
 
-#    - name: Build and push
-#      uses: docker/build-push-action@v5
-#      with:
-#        push: ${{ github.event_name != 'pull_request' }}
-#        tags: ${{ steps.meta.outputs.tags }}
-#        labels: ${{ steps.meta.outputs.labels }}
-#        cache-from: type=gha
-#        cache-to: type=gha,mode=max
+    - name: Build and push
+      uses: docker/build-push-action@v5
+      with:
+        push: ${{ github.event_name != 'pull_request' }}
+        tags: ${{ steps.meta.outputs.tags }}
+        labels: ${{ steps.meta.outputs.labels }}
+        cache-from: type=gha
+        cache-to: type=gha,mode=max
+        build-args: |
+          MAVEN_ARTIFACT_ID=${{ env.MAVEN_ARTIFACT_ID }}
+          MAVEN_VERSION=${{ env.MAVEN_VERSION }}
+   
+
 
     # Sign the resulting Docker image digest except on PRs.
     # This will only write to the public Rekor transparency log when the Docker

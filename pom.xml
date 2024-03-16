@@ -386,6 +386,11 @@
         <!-- Docker Packaging -->
         <profile>
             <id>docker</id>
+
+            <properties>
+                <docker.buildArg.MAVEN_VERSION>${project.version}</docker.buildArg.MAVEN_VERSION>
+                <docker.buildArg.MAVEN_ARTIFACT_ID>${project.artifactId}</docker.buildArg.MAVEN_ARTIFACT_ID>
+            </properties>
             <build>
                 <defaultGoal>docker:build</defaultGoal>
                 <plugins>
@@ -408,11 +413,6 @@
                                             <build>
                                                 <dockerFile>${project.basedir}/Dockerfile</dockerFile>
                                                 <optimise>false</optimise>
-                                                <args>
-                                                    <MAVEN_VERSION>${project.version}</MAVEN_VERSION>
-                                                    <MAVEN_ARTIFACT_ID>${project.artifactId}</MAVEN_ARTIFACT_ID>
-                                                </args>
-
                                                 <tags>
                                                     <tag>latest</tag>
                                                     <tag>${project.version}</tag>

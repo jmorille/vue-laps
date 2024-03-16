@@ -1,11 +1,18 @@
 ARG HTTPD_VERSION="2.4"
 
-FROM busybox AS BUILD
-ADD target/${project.artifactId}-${project.version}-app-htdocs.tar.gz /DATA/${project.artifactId}/
-ADD target/${project.artifactId}-${project.version}-app-resources-docker.tar.gz /DATA/${project.artifactId}/
+
+FROM busybox AS BUILD 
+ARG  MAVEN_ARTIFACT_ID
+ARG  MAVEN_VERSION
+
+ADD target/${MAVEN_ARTIFACT_ID}-${MAVEN_VERSION}-app-htdocs.tar.gz /DATA/${MAVEN_ARTIFACT_ID}/
+ADD target/${MAVEN_ARTIFACT_ID}-${MAVEN_VERSION}-app-resources-docker.tar.gz /DATA/${MAVEN_ARTIFACT_ID}/
 
 
-FROM httpd:${HTTPD_VERSION}
+FROM httpd:${HTTPD_VERSION} 
+ARG MAVEN_ARTIFACT_ID
+ARG MAVEN_VERSION
+
 # Expose
 # #######################
 EXPOSE 80
@@ -146,7 +153,7 @@ RUN mkdir -p /var/log/httpd/vuelaps/ \
  && echo "Include /DATA/vuelaps/conf-apache/vhost-vuelaps-lan.conf" > /usr/local/apache2/conf.d/vhost-vuelaps.conf
 
 # Add Applications
-COPY --from=BUILD /DATA/${project.artifactId}/ /DATA/vuelaps/
+COPY --from=BUILD /DATA/${MAVEN_ARTIFACT_ID}/ /DATA/vuelaps/
 
 #USER www-data:www-data
 #USER 33
