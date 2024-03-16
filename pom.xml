@@ -409,8 +409,10 @@
                                                 <dockerFile>${project.basedir}/Dockerfile</dockerFile>
                                                 <optimise>false</optimise>
                                                 <buildOptions>
-                                                    <VERSION>${project.version}</VERSION>
-                                                    <ARTIFACT_ID>${project.artifactId}</ARTIFACT_ID>
+                                                    <env>
+                                                        <VERSION>${project.version}</VERSION>
+                                                        <ARTIFACT_ID>${project.artifactId}</ARTIFACT_ID>
+                                                    </env>
                                                 </buildOptions>
 
                                                 <tags>

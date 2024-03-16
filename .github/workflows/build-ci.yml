@@ -94,10 +94,10 @@ jobs:
 #    - name: Build Docker
 #      run: mvn --batch-mode --update-snapshots docker:build -Pdocker
 
-    - name: Get version
+    - name: Extract Maven Info
       run: |
-        VERSION=$( mvn help:evaluate -Dexpression=project.version -q -DforceStdout )
-        ARTIFACT_ID=$( mvn help:evaluate -Dexpression=project.artifactId -q -DforceStdout ) 
+        export VERSION=$( mvn help:evaluate -Dexpression=project.version -q -DforceStdout )
+        export ARTIFACT_ID=$( mvn help:evaluate -Dexpression=project.artifactId -q -DforceStdout ) 
         echo "::set-output name=version::$VERSION"
       id: get_version
 
