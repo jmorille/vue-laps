@@ -1,0 +1,41 @@
+{
+  app: {
+    title: 'LAPS',
+    logout: 'Déconnexion',
+  },
+  menu: {
+    home: 'Accueil',
+    servers: 'Liste des Serveurs',
+    password: 'Mot de passe Serveur',
+    about: 'About',
+  },
+  input: {
+    hostName: 'Nom du serveur',
+  },
+  notify: {
+    refreshMs: 'Rechargement en {durationMs} ms'
+  },
+  buttons: {
+    copyClipboard: 'Presse-Papier',
+    confirm: {
+      yes: 'Oui',
+      no: 'Non',
+    },
+  },
+  home: {
+    welcome_to: 'Welcome to'
+  },
+  error: {
+    forbidden: {
+      title: 'Non autorisé',
+      message: 'Habilitation insuffisante',
+      request: 'Contactez votre intermédiaire de confiance pour toutes de demande d\'accès',
+    },
+    notfound: {
+      title: 'Page non trouvé',
+    },
+  },
+  login: {
+    title: 'Login',
+  }
+}

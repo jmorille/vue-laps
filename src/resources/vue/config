@@ -1,0 +1,5 @@
+{
+  "realm": "local",
+  "url": "https://${KEYCLOAK_DOMAIN}",
+  "clientId": "laps-vue"
+}

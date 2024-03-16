@@ -1,0 +1,473 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+
+    <groupId>com.arvato.it.vuelaps</groupId>
+    <artifactId>vue-laps</artifactId>
+    <version>0.9.4-SNAPSHOT</version>
+
+    <packaging>pom</packaging>
+
+    <name>Vue LAPS</name>
+    <description>Local Admintrateur Password Solution</description>
+
+
+    <scm>
+        <connection>scm:git:ssh://github.com/jmorille/vue-laps.git</connection>
+        <developerConnection>scm:git:git@github.com/jmorille/vue-laps.git</developerConnection>
+        <url>http://github.com/jmorille/vue-laps</url>
+        <tag>HEAD</tag>
+    </scm>
+    <issueManagement>
+        <system>JIRA</system>
+        <url>http://jira/browse/PRP/</url>
+    </issueManagement>
+
+    <properties>
+        <!-- L'encoding des sources -->
+        <source.encoding>UTF-8</source.encoding>
+
+        <!-- Packaging -->
+        <packaging.assembly.app.format>tar.gz</packaging.assembly.app.format>
+
+
+        <!-- Sonar -->
+        <sonar.sources>src/vuejs</sonar.sources>
+        <sonar.tests>src/tests,src/vuejs</sonar.tests>
+        <sonar.test.inclusions>src/**/*.spec.ts,src/**/*.spec.js,src/**/*.spec.jsx,src/**/*.test.js,src/**/*.test.jsx
+        </sonar.test.inclusions>
+        <sonar.coverage.exclusions>src/**/*.module.ts,src/test/**</sonar.coverage.exclusions>
+        <sonar.exclusions>**/node_modules/**,**/*.spec.ts,</sonar.exclusions>
+        <sonar.testExecutionReportPaths>${project.basedir}/reports/tests-reporter.xml</sonar.testExecutionReportPaths>
+        <sonar.typescript.lcov.reportPaths>${project.basedir}/reports/coverage/lcov.info
+        </sonar.typescript.lcov.reportPaths>
+        <!--<sonar.language>node</sonar.language>-->
+        <!--<sonar.tests>sources/tests</sonar.tests>-->
+
+        <!-- Vitest analysis -->
+        <vitest.sonar-report.reportPath>${project.build.directory}/vitest-sonar-report.xml
+        </vitest.sonar-report.reportPath>
+        <vitest.tests.reportPath>${project.build.directory}/vitest-junit-report.xml</vitest.tests.reportPath>
+        <vitest.coverage.lcov.reportPath>${project.build.directory}/coverage/lcov.info</vitest.coverage.lcov.reportPath>
+
+        <!-- Sonar Report -->
+        <sonar.testExecutionReportPaths>${vitest.sonar-report.reportPath}</sonar.testExecutionReportPaths>
+        <sonar.javascript.lcov.reportPaths>${vitest.coverage.lcov.reportPath}</sonar.javascript.lcov.reportPaths>
+
+        <!-- Les URLs pour les applications de l'USINE DE DEV JAVA -->
+        <!--<usine.url.jira>https://jira.netapsys.fr</usine.url.jira>
+
+        &lt;!&ndash; Changelog Configuration &ndash;&gt;
+        <usine.url.jira>https://home.atlassian.net</usine.url.jira>-->
+        <!-- <git-changelog-fromRef>${project.artifactId}-0.0.1</git-changelog-fromRef>-->
+        <git-changelog-toRef>HEAD</git-changelog-toRef>
+        <dist.docker-registry.name>local</dist.docker-registry.name>
+
+        <!-- Plugins -->
+        <!-- Config -->
+        <doc.skip>false</doc.skip>
+        <!-- ================================= -->
+        <!-- PPA                               -->
+        <!-- ================================= -->
+        <maven-clean-plugin.version>3.3.2</maven-clean-plugin.version>
+        <maven-dependency-plugin.version>3.6.1</maven-dependency-plugin.version>
+        <exec-maven-plugin.version>3.1.1</exec-maven-plugin.version>
+        <iterator-maven-plugin.version>0.5.1</iterator-maven-plugin.version>
+        <maven-assembly-plugin.version>3.6.0</maven-assembly-plugin.version>
+        <!-- Node Js -->
+        <nodejs.package-manager>pnpm</nodejs.package-manager>
+        <!-- Docker: io.fabric8:docker-maven-plugin -->
+        <docker-maven-plugin.fabric8.version>0.43.4</docker-maven-plugin.fabric8.version>
+        <podman-maven-plugin.version>1.18.0</podman-maven-plugin.version> <!-- nz.lexemmens -->
+
+        <!-- ================================= -->
+        <!-- Docker configuration              -->
+        <!-- ================================= -->
+        <dist.docker-registry.name>local</dist.docker-registry.name>
+        <!-- docker.pull.registry>harbor.home.loc</docker.pull.registry -->
+        <docker.push.registry>harbor.home.loc</docker.push.registry>
+
+        <!-- ================================= -->
+        <!-- Project Dependencies              -->
+        <!-- ================================= -->
+
+        <!-- ================================= -->
+        <!-- Hors socle                        -->
+        <!-- ================================= -->
+
+    </properties>
+
+
+    <build>
+        <sourceDirectory>${project.basedir}</sourceDirectory>
+        <!--<testSourceDirectory>${project.basedir}/sources/test</testSourceDirectory>-->
+
+        <resources>
+            <resource>
+                <directory>resources</directory>
+            </resource>
+        </resources>
+
+        <plugins>
+
+            <!-- Node App build in Target -->
+            <plugin>
+                <artifactId>maven-clean-plugin</artifactId>
+                <version>${maven-clean-plugin.version}</version>
+                <executions>
+                    <execution>
+                        <id>app-dist-clean</id>
+                        <phase>clean</phase>
+                        <goals>
+                            <goal>clean</goal>
+                        </goals>
+                        <configuration>
+                            <filesets>
+                                <fileset>
+                                    <directory>dist</directory>
+                                </fileset>
+                                <fileset>
+                                    <directory>reports</directory>
+                                </fileset>
+                                <fileset>
+                                    <directory>documentation</directory>
+                                </fileset>
+                            </filesets>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <!-- Node App build  : Npm Commands -->
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>${exec-maven-plugin.version}</version>
+                <executions>
+                    <!-- Version -->
+                    <execution>
+                        <id>packageJson-npm-set-version</id>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                        <configuration>
+                            <workingDirectory>${project.basedir}</workingDirectory>
+                            <executable>npm</executable>
+                            <commandlineArgs>version --allow-same-version --no-git-tag-version ${project.version}
+                            </commandlineArgs>
+                        </configuration>
+                    </execution>
+                    <!-- NodeJS : Install -->
+                    <execution>
+                        <id>nodeapp-nodejs-install</id>
+                        <phase>initialize</phase>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                        <configuration>
+                            <skip>${test.skip}</skip>
+                            <workingDirectory>${project.basedir}</workingDirectory>
+                            <executable>${nodejs.package-manager}</executable>
+                            <commandlineArgs>install</commandlineArgs>
+                        </configuration>
+                    </execution>
+
+                    <!-- Test: Type Check -->
+                    <execution>
+                        <id>nodeapp-type-check</id>
+                        <phase>test</phase>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                        <configuration>
+                            <skip>${test.skip}</skip>
+                            <workingDirectory>${project.basedir}</workingDirectory>
+                            <executable>${nodejs.package-manager}</executable>
+                            <commandlineArgs>type-check</commandlineArgs>
+                        </configuration>
+                    </execution>
+
+                    <!-- Test: Lint -->
+                    <execution>
+                        <id>nodeapp-lint</id>
+                        <phase>test</phase>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                        <configuration>
+                            <skip>${test.skip}</skip>
+                            <workingDirectory>${project.basedir}</workingDirectory>
+                            <executable>${nodejs.package-manager}</executable>
+                            <commandlineArgs>lint</commandlineArgs>
+                        </configuration>
+                    </execution>
+                    <!-- Test -->
+                    <execution>
+                        <id>nodeapp-test</id>
+                        <phase>test</phase>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                        <configuration>
+                            <skip>${test.skip}</skip>
+                            <workingDirectory>${project.basedir}</workingDirectory>
+                            <executable>${nodejs.package-manager}</executable>
+                            <commandlineArgs>run test:coverage</commandlineArgs>
+                            <environmentVariables>
+                                <NODE_ENV>test</NODE_ENV>
+                            </environmentVariables>
+                        </configuration>
+                    </execution>
+
+
+                    <execution>
+                        <id>nodeapp-nodejs-build-dist</id>
+                        <phase>prepare-package</phase>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                        <configuration>
+                            <workingDirectory>${project.basedir}</workingDirectory>
+                            <executable>${nodejs.package-manager}</executable>
+                            <commandlineArgs>build</commandlineArgs>
+                        </configuration>
+                    </execution>
+
+                </executions>
+            </plugin>
+
+            <!-- Assembly Configuration  -->
+            <plugin>
+                <groupId>com.soebes.maven.plugins</groupId>
+                <artifactId>iterator-maven-plugin</artifactId>
+                <version>${iterator-maven-plugin.version}</version>
+                <executions>
+                    <!-- Resources Local : By Env(INT/QA/RECETTE/PROD) -->
+                    <execution>
+                        <id>make-it-assembly-resources</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>iterator</goal>
+                        </goals>
+                        <configuration>
+                            <itemsWithProperties>
+                                <itemWithProptery>
+                                    <name>dev</name>
+                                    <properties>
+                                        <serverEnv>dev</serverEnv>
+                                    </properties>
+                                </itemWithProptery>
+                                <itemWithProptery>
+                                    <name>docker</name>
+                                    <properties>
+                                        <serverEnv>docker</serverEnv>
+                                    </properties>
+                                </itemWithProptery>
+                                <itemWithProptery>
+                                    <name>rec</name>
+                                    <properties>
+                                        <serverEnv>rec</serverEnv>
+                                    </properties>
+                                </itemWithProptery>
+                                <itemWithProptery>
+                                    <name>prod</name>
+                                    <properties>
+                                        <serverEnv>prod</serverEnv>
+                                    </properties>
+                                </itemWithProptery>
+                            </itemsWithProperties>
+
+
+                            <pluginExecutors>
+                                <pluginExecutor>
+                                    <!-- Configuration Iteration BEGIN -->
+                                    <plugin>
+                                        <groupId>org.apache.maven.plugins</groupId>
+                                        <artifactId>maven-assembly-plugin</artifactId>
+                                        <version>${maven-assembly-plugin.version}</version>
+                                    </plugin>
+                                    <goal>single</goal>
+                                    <configuration>
+                                        <appendAssemblyId>true</appendAssemblyId>
+                                        <tarLongFileMode>posix</tarLongFileMode>
+                                        <ignoreMissingDescriptor>true</ignoreMissingDescriptor>
+                                        <descriptors>
+                                            <descriptor>${project.basedir}/src/assembly/assembly-resources.xml
+                                            </descriptor>
+                                        </descriptors>
+                                        <!-- to ignore missing file : https://issues.apache.org/jira/browse/MSHARED-514 -->
+                                        <filters>
+                                            <filter>${project.basedir}/src/environment/app.properties</filter>
+                                            <filter>${project.basedir}/src/environment/app-${serverEnv}.properties
+                                            </filter>
+                                        </filters>
+                                    </configuration>
+                                    <!-- Configuration Iteration END -->
+                                </pluginExecutor>
+                            </pluginExecutors>
+
+                        </configuration>
+                    </execution>
+
+                </executions>
+            </plugin>
+
+            <!-- Assembly htdocs -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <version>${maven-assembly-plugin.version}</version>
+                <configuration>
+                    <appendAssemblyId>true</appendAssemblyId>
+                    <tarLongFileMode>gnu</tarLongFileMode>
+                </configuration>
+                <executions>
+                    <!-- htdocs -->
+                    <execution>
+                        <id>make-assembly-htdocs</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                        <configuration>
+                            <descriptors>
+                                <descriptor>${project.basedir}/src/assembly/assembly-htdocs.xml</descriptor>
+                            </descriptors>
+                        </configuration>
+                    </execution>
+                    <!-- keycloak -->
+                    <execution>
+                        <id>make-assembly-keycloak</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                        <configuration>
+                            <descriptors>
+                                <descriptor>${project.basedir}/src/assembly/assembly-keycloak.xml</descriptor>
+                            </descriptors>
+                        </configuration>
+                    </execution>
+
+                </executions>
+            </plugin>
+
+
+        </plugins>
+
+
+    </build>
+
+
+    <profiles>
+        <!-- Skip Tests -->
+        <profile>
+            <id>nodeapp-skipTests</id>
+            <activation>
+                <property>
+                    <name>skipTests</name>
+                </property>
+            </activation>
+            <properties>
+                <test.skip>${skipTests}</test.skip>
+            </properties>
+        </profile>
+        <!-- Dev Config -->
+        <profile>
+            <id>todir</id>
+            <properties>
+                <packaging.assembly.app.format>dir</packaging.assembly.app.format>
+            </properties>
+        </profile>
+
+
+        <!-- Docker Packaging -->
+        <profile>
+            <id>docker</id>
+            <build>
+                <defaultGoal>docker:build</defaultGoal>
+                <plugins>
+                    <plugin>
+                        <groupId>io.fabric8</groupId>
+                        <artifactId>docker-maven-plugin</artifactId>
+                        <version>${docker-maven-plugin.fabric8.version}</version>
+                        <executions>
+                            <execution>
+                                <id>package-docker</id>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>build</goal>
+                                </goals>
+                                <configuration>
+                                    <verbose>true</verbose>
+                                    <images>
+                                        <image>
+                                            <name>${dist.docker-registry.name}/${project.artifactId}</name>
+                                            <build>
+                                                <dockerFile>${project.basedir}/Dockerfile</dockerFile>
+                                                <optimise>false</optimise>
+                                                <tags>
+                                                    <tag>latest</tag>
+                                                    <tag>${project.version}</tag>
+                                                </tags>
+                                            </build>
+                                        </image>
+                                    </images>
+                                </configuration>
+                            </execution>
+                        </executions>
+
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+        <!-- Podman -->
+        <profile>
+            <id>podman</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>nl.lexemmens</groupId>
+                        <artifactId>podman-maven-plugin</artifactId>
+                        <version>${podman-maven-plugin.version}</version>
+                        <executions>
+                            <execution>
+                                <id>package-podman</id>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>build</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                        <configuration>
+                            <registries>
+                                <registry>${docker.pull.registry}</registry>
+                            </registries>
+                            <pushRegistry>${docker.push.registry}</pushRegistry>
+                            <images>
+                                <image>
+                                    <name>${dist.docker-registry.name}/${project.artifactId}</name>
+                                    <build>
+                                        <!-- <format>DOCKER</format>-->
+                                        <containerFile>${project.basedir}/Dockerfile</containerFile>
+                                        <tags>
+                                            <tag>latest</tag>
+                                            <tag>${project.version}</tag>
+                                        </tags>
+                                    </build>
+                                </image>
+                            </images>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+
+    </profiles>
+
+
+</project>

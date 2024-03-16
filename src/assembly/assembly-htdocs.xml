@@ -1,0 +1,46 @@
+<assembly xmlns="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.3"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.3 http://maven.apache.org/xsd/assembly-1.1.3.xsd">
+
+    <id>app-htdocs</id>
+    <formats>
+        <format>${packaging.assembly.app.format}</format>
+    </formats>
+
+    <includeBaseDirectory>false</includeBaseDirectory>
+
+
+    <fileSets>
+        <!-- Version -->
+        <fileSet>
+            <directory>${basedir}/src/config/apache/version</directory>
+            <outputDirectory>htdocs/web</outputDirectory>
+            <filtered>true</filtered>
+            <fileMode>0555</fileMode>
+            <directoryMode>0755</directoryMode>
+        </fileSet>
+
+        <!-- Service CGI -->
+        <fileSet>
+            <directory>${basedir}/src/config/cgi-bin</directory>
+            <outputDirectory>htdocs/cgi-bin</outputDirectory>
+            <fileMode>0555</fileMode>
+            <directoryMode>0755</directoryMode>
+        </fileSet>
+
+        <!-- Service NodeJS -->
+        <fileSet>
+            <directory>${project.build.directory}/dist</directory>
+            <outputDirectory>htdocs/web</outputDirectory>
+            <fileMode>0555</fileMode>
+            <directoryMode>0755</directoryMode>
+            <excludes>
+                <exclude>target</exclude>
+                <exclude>config</exclude>
+            </excludes>
+        </fileSet>
+
+    </fileSets>
+
+
+</assembly>

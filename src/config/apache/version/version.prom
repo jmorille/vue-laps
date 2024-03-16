@@ -1,0 +1,3 @@
+# HELP app_version_info Application version info.
+# TYPE app_version_info gauge
+app_version_info{groupid="${pom.groupId}",artifactid="${pom.artifactId}",version="${project.version}",pomName="${project.name}",major="${parsedVersion.majorVersion}",minor="${parsedVersion.minorVersion}",patch="${parsedVersion.incrementalVersion}",qualifier="${parsedVersion.qualifier}",date="${build.date}",commit="${git.commit.sha1}"} 1

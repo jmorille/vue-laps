@@ -1,0 +1,13 @@
+{
+  "extends": "@vue/tsconfig/tsconfig.dom.json",
+  "include": ["env.d.ts", "src/vuejs/**/*.json5", "src/vuejs/**/*.ts", "src/vuejs/**/*.mts", "src/vuejs/**/*.vue"],
+  "exclude": ["src/vuejs/**/__tests__/*"],
+  "compilerOptions": {
+    "composite": true,
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/vuejs/*"]
+    },
+    "resolvePackageJsonExports": false
+  }
+}

@@ -1,0 +1,34 @@
+version: "3.8"
+services:
+
+  laps:
+    image: local/vue-laps:latest
+    container_name: laps
+    restart: always
+    user: '33:33'
+    ports:
+      - "80:80"
+    environment:
+      HTTPD_SERVER_NAME: "laps.localhost"
+      HTTPD_SERVER_ALIAS: "127.0.0.1 localhost"
+    volumes:
+      - "./logs/httpd-vuelaps:/var/log/httpd/vuelaps/"
+#      - "./src/config/apache/socle/socle-logformat.conf:/DATA/vuelaps/conf-apache/socle/socle-logformat.conf"
+#      - "./src/config/apache/keycloak-server.conf:/DATA/vuelaps/conf-apache/keycloak-server.conf"
+#      - "./src/config/apache/app-cgi.conf:/DATA/vuelaps/conf-apache/app-cgi.conf"
+#      - "./src/config/cgi-bin/password.sh:/DATA/vuelaps/htdocs/cgi-bin/password.sh"
+#      - "./src/config/cgi-bin/password.sh:/DATA/vuelaps/htdocs/cgi-bin/password.ps1"
+    networks:
+      - app-network
+
+#  php-fpm:
+#    image: php:fpm
+#    container_name: php-fpm
+#    volumes:
+#      - "./public:/DATA/vuelaps/htdocs/ihm"
+#    networks:
+#      - app-network
+
+networks:
+  app-network:
+    driver: bridge
