@@ -94,6 +94,15 @@ jobs:
     - name: Build Docker
       run: mvn --batch-mode --update-snapshots docker:build -Pdocker
 
+    - name: Get version
+      run: |
+        VERSION=$( mvn help:evaluate -Dexpression=project.version -q -DforceStdout )
+        project.artifactId=$( mvn help:evaluate -Dexpression=project.artifactId -q -DforceStdout )
+        project.version=$( mvn help:evaluate -Dexpression=project.version -q -DforceStdout )
+        echo "::set-output name=version::$VERSION"
+      id: get_version
+
+
     - name: Build and push
       uses: docker/build-push-action@v5
       with:
