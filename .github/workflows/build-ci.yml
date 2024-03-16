@@ -37,6 +37,8 @@ jobs:
     - name: Build Maven
       run: mvn --batch-mode --update-snapshots package
 
+    - name: Build Docker
+      run: mvn --batch-mode --update-snapshots docker:build -Pdocker
 
     - name: Archive
       run: mkdir staging && cp target/*.tar.gz staging
