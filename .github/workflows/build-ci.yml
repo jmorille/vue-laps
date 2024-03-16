@@ -56,6 +56,7 @@ jobs:
         echo "MAVEN_GROUP_ID=$( mvn help:evaluate -Dexpression=project.groupId -q -DforceStdout )"        >> $GITHUB_ENV
         echo "MAVEN_ARTIFACT_ID=$( mvn help:evaluate -Dexpression=project.artifactId -q -DforceStdout )"  >> $GITHUB_ENV
         echo "MAVEN_VERSION=$( mvn help:evaluate -Dexpression=project.version -q -DforceStdout )"         >> $GITHUB_ENV
+        echo "MAVEN_DESCRIPTION=$( mvn help:evaluate -Dexpression=project.description -q -DforceStdout )"         >> $GITHUB_ENV
 
 
     - name: Archive
@@ -94,9 +95,11 @@ jobs:
       # https://github.com/docker/metadata-action
     - name: Extract Docker metadata ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
       id: meta
-      uses: docker/metadata-action@96383f45573cb7f253c731d3b3ab81c87ef81934 # v5.0.0
+      uses: docker/metadata-action@5 # v5.0.0
       with:
         images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+        tags: |
+          type=semver,pattern={{ env.MAVEN_VERSION }}
 
 #    - name: Docker - Build
 #      run: mvn --batch-mode  docker:build -Pdocker
