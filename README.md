@@ -1,5 +1,6 @@
-vue-laps
-#################################
+vue-laps [![Build CI](https://github.com/jmorille/vue-laps/actions/workflows/build-ci.yml/badge.svg)](https://github.com/jmorille/vue-laps/actions/workflows/build-ci.yml)
+==============================================
+
 
 ## Description
 Local Admintrateur Password Solution
