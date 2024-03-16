@@ -33,7 +33,7 @@ jobs:
     - name: NodeJS pnpm
       uses: pnpm/action-setup@v2
       with:
-        version: 6.10.0
+        version: 8.15.4
 
     - name: NodeJS 20
       uses: actions/setup-node@v4
