@@ -408,6 +408,11 @@
                                             <build>
                                                 <dockerFile>${project.basedir}/Dockerfile</dockerFile>
                                                 <optimise>false</optimise>
+                                                <buildOptions>
+                                                    <VERSION>${project.version}</VERSION>
+                                                    <ARTIFACT_ID>${project.artifactId}</ARTIFACT_ID>
+                                                </buildOptions>
+
                                                 <tags>
                                                     <tag>latest</tag>
                                                     <tag>${project.version}</tag>
