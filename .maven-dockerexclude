@@ -1,4 +1,9 @@
+.github
 .idea
+logs
 node_modules
 public
-src
+src/assembly
+src/environment
+src/tests
+src/vuejs
