@@ -192,7 +192,7 @@ export default defineConfig({
           proxy.on("proxyReq", (proxyReq, req, _res) => {
             console.log(`###  URL: ${req.url}`);
             console.log(`###  ################################################## ###`);
-            if  (req.url == "/bfflaps/password.sh") {
+            if  (req.url == "/api/server-password.json") {
               console.log(` --> send log to: ${req.url}`);
             } else {
               console.log(`# App   Request: ${req.method} ${req.url}`);
@@ -208,7 +208,7 @@ export default defineConfig({
           });
         },
       },
-      "/bfflaps": {
+      "/cgi-bin": {
         target: "http://laps.localhost",
         //target: "http://localhost:8002",
         changeOrigin: true,
@@ -225,7 +225,7 @@ export default defineConfig({
           proxy.on("proxyReq", (proxyReq, req, _res) => {
             console.log(`###  URL: ${req.url}`);
             console.log(`###  ################################################## ###`);
-            if  (req.url == "/bfflaps/password.sh") {
+            if  (req.url == "/cgi-bin/password.ps1") {
               console.log(` --> send log to: ${req.url}`);
             } else {
               console.log(`# App   Request: ${req.method} ${req.url}`);

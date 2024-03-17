@@ -43,7 +43,7 @@ export const usePasswordStore = defineStore('password', () => {
        }
         //
         logger.info(`GET password for host=${host}`);
-        return axios.get(`/bfflaps/password.sh?${host}`,  { withCredentials: true } ) // TODO { params: { host}}
+        return axios.get(`/cgi-bin/password.ps1?${host}`,  { withCredentials: true } ) // TODO { params: { host}}
             .then( (res) => res.data)
             .then( (data:PasswordVO) => {
                 return {server, ...data};
