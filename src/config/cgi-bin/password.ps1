@@ -19,8 +19,8 @@ if ($args.Count -eq 0) {
 }
 
 # Récupère le paramètre passé en URL
-#$HOSTNAME = $args[0]
-$cle, $HOSTNAME =  $args[0].Split('=')
+$HOSTNAME = $env:QUERY_STRING
+#$cle, $HOSTNAME =  $env:QUERY_STRING.Split('=')
 
 
 # Génère la date actuelle
