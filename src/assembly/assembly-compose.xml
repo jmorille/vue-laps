@@ -10,10 +10,18 @@
     <includeBaseDirectory>false</includeBaseDirectory>
 
     <fileSets>
-        <!-- App config -->
+        <!-- Keycloak: Realms import -->
+        <fileSet>
+            <directory>${basedir}/src/config/keycloak</directory>
+            <outputDirectory>keycloak/src/config/keycloak</outputDirectory>
+            <filtered>false</filtered>
+            <fileMode>0555</fileMode>
+            <directoryMode>0755</directoryMode>
+        </fileSet>
+        <!-- LAPS : App config -->
         <fileSet>
             <directory>${basedir}/resources</directory>
-            <outputDirectory>resources</outputDirectory>
+            <outputDirectory>laps/resources</outputDirectory>
             <filtered>false</filtered>
             <fileMode>0555</fileMode>
             <directoryMode>0755</directoryMode>
@@ -21,18 +29,31 @@
     </fileSets>
 
     <files>
-
-        <!-- docker compose -->
-         <file>
-            <source>${basedir}/docker-compose.yml</source>
-            <outputDirectory>.</outputDirectory>
+        <!-- Keycloak: docker compose -->
+        <file>
+            <source>${basedir}/docker-compose.keycloak.yml</source>
+            <outputDirectory>keycloak</outputDirectory>
             <destName>docker-compose.yml</destName>
             <filtered>false</filtered>
         </file>
-        <!-- docker file -->
+        <!-- Keycloak:  Build docker file -->
+        <file>
+            <source>${basedir}/keycloak.Dockerfile</source>
+            <outputDirectory>keycloak</outputDirectory>
+            <filtered>false</filtered>
+        </file>
+
+        <!-- LAPS: docker compose -->
+         <file>
+            <source>${basedir}/docker-compose.yml</source>
+            <outputDirectory>laps</outputDirectory>
+            <destName>docker-compose.yml</destName>
+            <filtered>false</filtered>
+        </file>
+        <!-- Laps: Powershell docker file build -->
         <file>
             <source>${basedir}/powershell.Dockerfile</source>
-            <outputDirectory>.</outputDirectory>
+            <outputDirectory>laps</outputDirectory>
             <filtered>false</filtered>
         </file>
     </files>

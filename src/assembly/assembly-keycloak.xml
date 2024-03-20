@@ -21,14 +21,14 @@
     </fileSets>
 
     <files>
-        <!-- docker compose -->
+        <!-- Keycloak: docker compose -->
          <file>
             <source>${basedir}/docker-compose.keycloak.yml</source>
             <outputDirectory>.</outputDirectory>
             <destName>docker-compose.yml</destName>
             <filtered>false</filtered>
         </file>
-        <!-- docker file -->
+        <!-- Keycloak:  Build docker file -->
         <file>
             <source>${basedir}/keycloak.Dockerfile</source>
             <outputDirectory>.</outputDirectory>
