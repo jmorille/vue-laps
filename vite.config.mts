@@ -192,16 +192,12 @@ export default defineConfig({
           proxy.on("proxyReq", (proxyReq, req, _res) => {
             console.log(`###  URL: ${req.url}`);
             console.log(`###  ################################################## ###`);
-            if  (req.url == "/api/server-password.json") {
-              console.log(` --> send log to: ${req.url}`);
-            } else {
               console.log(`# App   Request: ${req.method} ${req.url}`);
               console.log(`# Proxy Request: ${proxyReq.method} ${proxyReq.protocol}/${proxyReq.host}${proxyReq.path}`);
               console.log(`#  Header:`,  JSON.stringify(proxyReq.getHeaders()) );
               console.log(`==> Response Status :`,   _res.statusCode , " : ", _res.statusMessage);
               console.log(`==> Response Headers:`,   JSON.stringify( _res.getHeaders())  );
               //console.log(`==> Response body :`,   JSON.stringify( _res.write(console.log) ) );
-            }
             // console.log(' ');
             // console.log(`curl -k -H "Authorization: ${proxyReq.getHeader('authorization')}"  ${proxyReq.protocol}//${proxyReq.host}${proxyReq.path}`);
             console.log(`###  ################################################## ###`);

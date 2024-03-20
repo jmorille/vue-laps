@@ -18,11 +18,8 @@ services:
       APACHE_POWERSHELL_PORT: "8000"
     volumes:
       - "./logs/httpd-vuelaps:/var/log/httpd/vuelaps/"
-#      - "./src/config/apache/socle/socle-logformat.conf:/DATA/vuelaps/conf-apache/socle/socle-logformat.conf"
-#      - "./src/config/apache/keycloak-server.conf:/DATA/vuelaps/conf-apache/keycloak-server.conf"
-      - "./src/config/apache/keycloak-location.conf:/DATA/vuelaps/conf-apache/keycloak-location.conf"
-#      - "./src/config/apache/app-cgi.conf:/DATA/vuelaps/conf-apache/app-cgi.conf"
-#      - "./src/config/cgi-bin/password.sh:/DATA/vuelaps/htdocs/cgi-bin/password.sh"
+      - "./resources/vue/config:/DATA/vuelaps/resources/vue/config"
+      - "./resources/laps/server-password.json:/DATA/vuelaps/resources/laps/server-password.json"
 #      - "./src/config/cgi-bin/password.sh:/DATA/vuelaps/htdocs/cgi-bin/password.ps1"
     networks:
       - app-network

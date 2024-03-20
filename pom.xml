@@ -350,6 +350,19 @@
                             </descriptors>
                         </configuration>
                     </execution>
+                    <!-- Docker compose app -->
+                    <execution>
+                        <id>make-assembly-compose</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                        <configuration>
+                            <descriptors>
+                                <descriptor>${project.basedir}/src/assembly/assembly-compose.xml</descriptor>
+                            </descriptors>
+                        </configuration>
+                    </execution>
 
                 </executions>
             </plugin>
