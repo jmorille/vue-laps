@@ -8,7 +8,7 @@ Laps installer
 2. Enter this DNS Name in :
 * keycloak/keycloak.Dockerfile
 * keycloak/docker-compose.yaml
- * KC_HOSTNAME: keycloak.home.loc
+> KC_HOSTNAME: keycloak.home.loc
 * laps/docker-compose.yaml
 
 ### DNS Laps
@@ -22,8 +22,8 @@ Laps installer
 
 ### Config password
 1. Edit file 'docker-compose.yams' for changing password
-* KEYCLOAK_ADMIN_PASSWORD: admin
-* 
+> KEYCLOAK_ADMIN_PASSWORD: admin
+
 
 ### Start Keycloak
 
