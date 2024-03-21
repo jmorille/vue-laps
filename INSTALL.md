@@ -16,7 +16,9 @@ Laps installer
 1. Ceeate DNS entry for Lapd
 2. Enter this DNS Name in :
 * laps/docker-compose.yaml
+> HTTPD_SERVER_NAME: "laps.localhost"
 
+> HTTPD_SERVER_ALIAS: "127.0.0.1 localhost"
 
 
 ## Config Keycloak
