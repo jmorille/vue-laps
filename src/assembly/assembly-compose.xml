@@ -26,7 +26,7 @@
             <fileMode>0555</fileMode>
             <directoryMode>0755</directoryMode>
         </fileSet>
-        <!-- LAPS : App script
+        <!-- LAPS : App script   -->
         <fileSet>
             <directory>${basedir}/src/config/cgi-bin</directory>
             <outputDirectory>laps/src/config/cgi-bin</outputDirectory>
@@ -37,7 +37,7 @@
                 <include>*.ps1</include>
             </includes>
         </fileSet>
-        -->
+
     </fileSets>
 
     <files>
