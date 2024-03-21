@@ -8,7 +8,9 @@ on:
     branches: [ "master" ]
   pull_request:
     branches: [ "master" ]
-
+  release:
+    types: [published]
+    
 env:
   # Use docker.io for Docker Hub if empty
   REGISTRY: ghcr.io
@@ -49,8 +51,10 @@ jobs:
         cache: 'maven'
 
     - name: Build Maven
-      run: mvn --batch-mode package
-
+      run: mvn --batch-mode package deploy
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          
     - name: Extract Maven Info
       run: |
         echo "MAVEN_GROUP_ID=$( mvn help:evaluate -Dexpression=project.groupId -q -DforceStdout )"        >> $GITHUB_ENV
