@@ -10,7 +10,7 @@ Enter this DNS Name in :
 * keycloak/docker-compose.yaml
 * laps/docker-compose.yaml
 
-### Dns Lapd
+### Dns Laps
 Ceeate DNS entry for Lapd
 Enter this DNS Name in :
 * laps/docker-compose.yaml
@@ -28,12 +28,16 @@ Login
 * Admin Keycloak: https://keycloak.home.loc:8443/
 4. Login: admin/admin
 
+
+### Config keycloak laps client
 Next in realm local
-* create users with role: laps-httd/user & laps-vue/user
 * Go to : Realms > local > laps-httpd > Credential
 1. Client Secret > Regerate
-2. Copy to value to: src/environment/app-docker.properties > KEYCLOAK_CLIENT_SECRET
-2. Copy to value to: docker-compose.yaml > KEYCLOAK_CLIENT_SECRET
+2. Copy to value to: laps/docker-compose.yaml > KEYCLOAK_CLIENT_SECRET
 
+
+### Create keycloak Realms User
+Next in realm local
+* create users with role: laps-httd/user & laps-vue/user
 
 ## Laps Httpd
