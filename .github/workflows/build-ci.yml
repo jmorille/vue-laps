@@ -78,7 +78,7 @@ jobs:
  
 
     - if: github.event.release
-      name:  Upload Release Asset
+      name:  Upload Release app-compose
       uses: actions/upload-release-asset@v1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -87,6 +87,31 @@ jobs:
         asset_path: ./target/${{ env.MAVEN_ARTIFACT_ID }}-${{ env.MAVEN_VERSION }}-app-compose.tar.gz
         asset_name: ${{ env.MAVEN_ARTIFACT_ID }}-${{ env.MAVEN_VERSION }}-app-compose.tar.gz
         asset_content_type: application/gzip
+
+
+    - if: github.event.release
+      name:  Upload Release app-htdocs
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.get_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps
+        asset_path: ./target/${{ env.MAVEN_ARTIFACT_ID }}-${{ env.MAVEN_VERSION }}-app-htdocs.tar.gz
+        asset_name: ${{ env.MAVEN_ARTIFACT_ID }}-${{ env.MAVEN_VERSION }}-app-htdocs.tar.gz
+        asset_content_type: application/gzip
+
+
+    - if: github.event.release
+      name:  Upload Release resources-docker
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.get_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps
+        asset_path: ./target/${{ env.MAVEN_ARTIFACT_ID }}-${{ env.MAVEN_VERSION }}-app-resources-docker.tar.gz
+        asset_name: ${{ env.MAVEN_ARTIFACT_ID }}-${{ env.MAVEN_VERSION }}-app-resources-docker.tar.gz
+        asset_content_type: application/gzip
+
 
     - name: Archive
       run: mkdir staging && cp target/*.tar.gz staging
