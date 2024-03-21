@@ -41,6 +41,13 @@
     </fileSets>
 
     <files>
+        <!-- Doc: Install -->
+        <file>
+            <source>${basedir}/INSTALL.md</source>
+            <outputDirectory>.</outputDirectory>
+            <filtered>false</filtered>
+        </file>
+
         <!-- Keycloak: docker compose -->
         <file>
             <source>${basedir}/docker-compose.keycloak.yml</source>
