@@ -25,6 +25,14 @@
         <url>http://jira/browse/PRP/</url>
     </issueManagement>
 
+  <distributionManagement>
+    <repository>
+      <id>github</id>
+      <name>GitHub Packages</name>
+      <url>https://maven.pkg.github.com/jmorille/vue-laps</url>
+    </repository>
+  </distributionManagement>
+         
     <properties>
         <!-- L'encoding des sources -->
         <source.encoding>UTF-8</source.encoding>
