@@ -19,6 +19,10 @@ Laps installer
 
 ## Config Keycloak
 
+### Config password
+1. Edit file 'docker-compose.yams' for changing password
+* 
+
 ### Start Keycloak
 
 1. Start keycloak
