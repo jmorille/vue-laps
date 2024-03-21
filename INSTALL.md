@@ -10,7 +10,7 @@ Enter this DNS Name in :
 * keycloak/docker-compose.yaml
 * laps/docker-compose.yaml
 
-### Dns Laps
+### DNS Laps
 Ceeate DNS entry for Lapd
 Enter this DNS Name in :
 * laps/docker-compose.yaml
@@ -28,6 +28,10 @@ Login
 * Admin Keycloak: https://keycloak.home.loc:8443/
 4. Login: admin/admin
 
+### Config keycloak 
+General configuration ok Keycloak
+* Configure LDAP connector
+* Configure EMAIL
 
 ### Config keycloak laps client
 Next in realm local
