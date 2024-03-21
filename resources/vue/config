@@ -1,5 +1,0 @@
-{
-  "realm": "local",
-  "url": "https://keycloak.home.loc:8443",
-  "clientId": "laps-vue"
-}
