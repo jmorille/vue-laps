@@ -56,7 +56,7 @@ Next in realm local
 ./laps/src/config/cgi-bin/password.sh
 
 2. Uncomment line in laps/docker-compose.yaml
-#  - "./src/config/cgi-bin/password.sh:/DATA/vuelaps/htdocs/cgi-bin/password.ps1"
+*  - "./src/config/cgi-bin/password.sh:/DATA/vuelaps/htdocs/cgi-bin/password.ps1"
 
 ### Start Laps Httpd
 1. Start Laps
