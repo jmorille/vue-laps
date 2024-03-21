@@ -159,7 +159,7 @@ COPY --from=BUILD ${APP_DIR}/ ${APP_DIR}/
 
 #
 RUN mv ${APP_DIR}/resources/vue/config  ${APP_DIR}/resources/vue/config.template \
-    && chown-R www-data:www-data ${APP_DIR}/resources/vue
+    && chown -R www-data:www-data  ${APP_DIR}/resources/vue
 #    && envsubst < ${APP_DIR}/resources/vue/config.template > ${APP_DIR}/resources/vue/config
 #USER www-data:www-data
 #USER 33

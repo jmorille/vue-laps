@@ -18,7 +18,7 @@ services:
       APACHE_POWERSHELL_PORT: "8000"
     volumes:
       - "./logs/httpd-vuelaps:/var/log/httpd/vuelaps/"
-      - "./resources/vue/config:/DATA/vuelaps/resources/vue/config"
+#      - "./resources/vue/config:/DATA/vuelaps/resources/vue/config"
       - "./resources/laps/server-password.json:/DATA/vuelaps/resources/laps/server-password.json"
 #      - "./src/config/cgi-bin/password.sh:/DATA/vuelaps/htdocs/cgi-bin/password.ps1"
     networks:
