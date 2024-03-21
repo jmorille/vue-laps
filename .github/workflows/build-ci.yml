@@ -77,9 +77,6 @@ jobs:
         echo "MAVEN_DESCRIPTION=$( mvn help:evaluate -Dexpression=project.description -q -DforceStdout )"         >> $GITHUB_ENV
  
 
-    - id: step_upload_url
-      run: echo "::set-output name=upload_url::${{  github.event.release.release.upload_url }}"
-
     - if: github.event.release
       name:  Upload Release Asset
       uses: actions/upload-release-asset@v1
