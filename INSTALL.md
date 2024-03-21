@@ -53,7 +53,7 @@ Next in realm local
 ## Laps 
 ### Config Laps
 1. Put the script powershell in
-'./laps/src/config/cgi-bin/password.ps1'
+'''./laps/src/config/cgi-bin/password.ps1'''
 
 ### Start Laps Httpd
 1. Start Laps
