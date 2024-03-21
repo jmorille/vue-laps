@@ -4,15 +4,15 @@ Laps installer
 ## Config DNS
 
 ### Dns Keycloak
-Create a DNS entry for keycloak
-Enter this DNS Name in :
+1. Create a DNS entry for keycloak
+2. Enter this DNS Name in :
 * keycloak/keycloak.Dockerfile
 * keycloak/docker-compose.yaml
 * laps/docker-compose.yaml
 
 ### DNS Laps
-Ceeate DNS entry for Lapd
-Enter this DNS Name in :
+1. Ceeate DNS entry for Lapd
+2. Enter this DNS Name in :
 * laps/docker-compose.yaml
 
 
