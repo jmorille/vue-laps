@@ -32,9 +32,11 @@ $ docker-compose  up
 
 ### Config keycloak 
 General configuration ok Keycloak
-* Configure LDAP connector
-* Configure EMAIL
-* What ever ...
+* LDAP connector
+* SMTP
+* Password Strategy
+* MFA
+* What ever you want ...
 
   
 ### Config keycloak laps client
