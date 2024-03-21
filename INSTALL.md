@@ -13,8 +13,8 @@ Laps installer
 > KEYCLOAK_DOMAIN: "keycloak.home.loc:8443"
 
 ### DNS Laps
-1. Ceeate DNS entry for Lapd
-2. Enter this DNS Name in :
+Create DNS entry for Lapd
+1. Enter this DNS Name in :
 * laps/docker-compose.yaml
 > HTTPD_SERVER_NAME: "laps.localhost"
 
