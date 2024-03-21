@@ -10,6 +10,7 @@ Laps installer
 * keycloak/docker-compose.yaml
 > KC_HOSTNAME: keycloak.home.loc
 * laps/docker-compose.yaml
+> KEYCLOAK_DOMAIN: "keycloak.home.loc:8443"
 
 ### DNS Laps
 1. Ceeate DNS entry for Lapd
