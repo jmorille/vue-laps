@@ -26,6 +26,17 @@
             <fileMode>0555</fileMode>
             <directoryMode>0755</directoryMode>
         </fileSet>
+        <!-- LAPS : App config -->
+        <fileSet>
+            <directory>${basedir}/src/config/cgi-bin</directory>
+            <outputDirectory>laps/src/config/cgi-bin</outputDirectory>
+            <filtered>false</filtered>
+            <fileMode>0555</fileMode>
+            <directoryMode>0755</directoryMode>
+            <includes>
+                <include>*.ps1</include>
+            </includes>
+        </fileSet>
     </fileSets>
 
     <files>

@@ -28,8 +28,10 @@ services:
     build:
       dockerfile: ./powershell.Dockerfile
     container_name: powershell
-    ports:
-      - "8000:8000"
+#    ports:
+#      - "8000:8000"
+    volumes:
+          - "./src/config/cgi-bin/password.sh:/DATA/vuelaps/htdocs/cgi-bin/password.ps1"
     networks:
       - app-network
 

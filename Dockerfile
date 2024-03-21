@@ -28,7 +28,7 @@ RUN apt update \
      libapache2-mod-auth-openidc libapache2-mod-oauth2 \
      libapache2-mod-lookup-identity \
      libapache2-mod-evasive libapache2-mod-log-slow \
-     libapache2-mod-mono curl
+     libapache2-mod-mono curl gettext
 
 
 #  grep LoadModule /usr/local/apache2/conf/httpd.conf | grep status
@@ -157,5 +157,8 @@ RUN mkdir -p /var/log/httpd/vuelaps/ \
 # Add Applications
 COPY --from=BUILD ${APP_DIR}/ ${APP_DIR}/
 
+#
+RUN cp ${APP_DIR}/resources/vue/config  ${APP_DIR}/resources/vue/config.template \
+    && envsubst < ${APP_DIR}/resources/vue/config.template > ${APP_DIR}/resources/vue/config.json
 #USER www-data:www-data
 #USER 33
