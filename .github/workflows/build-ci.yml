@@ -21,9 +21,6 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
-    outputs:
-      version: ${{ steps.step_version.outputs.version }}
-      upload_url: ${{ steps.step_upload_url.outputs.upload_url }}
 
     permissions:
       contents: read
@@ -69,12 +66,10 @@ jobs:
         echo "MAVEN_ARTIFACT_ID=$( mvn help:evaluate -Dexpression=project.artifactId -q -DforceStdout )"  >> $GITHUB_ENV
         echo "MAVEN_VERSION=$( mvn help:evaluate -Dexpression=project.version -q -DforceStdout )"         >> $GITHUB_ENV
         echo "MAVEN_DESCRIPTION=$( mvn help:evaluate -Dexpression=project.description -q -DforceStdout )"         >> $GITHUB_ENV
-
-    - id: step_version
-      run: echo "::set-output name=version::${{ steps.package_version.outputs.version }}"
+ 
 
     - id: step_upload_url
-      run: echo "::set-output name=upload_url::${{ steps.create_release.outputs.upload_url }}"
+      run: echo "::set-output name=upload_url::${{  github.event.release.release.upload_url }}"
 
     - if: github.event.release
       name:  Upload Release Asset
@@ -82,7 +77,7 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps
+        upload_url: ${{  github.event.release.release.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps
         asset_path: ./target/${{ env.MAVEN_ARTIFACT_ID }}-${{ env.MAVEN_VERSION }}-app-compose.tar.gz
         asset_name: ${{ env.MAVEN_ARTIFACT_ID }}-${{ env.MAVEN_VERSION }}-app-compose.tar.gz
         asset_content_type: application/gzip
