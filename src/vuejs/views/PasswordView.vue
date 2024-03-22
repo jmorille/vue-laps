@@ -45,6 +45,8 @@ const refreshDuration = ref(0);
         loading.value = false;
         refreshDuration.value = dayjs.duration(end.diff(begin)).asMilliseconds();
         snackbar.value=true;
+      }).catch(err => {
+        loading.value = false;
       });
   }
 });

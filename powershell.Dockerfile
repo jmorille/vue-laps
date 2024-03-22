@@ -6,7 +6,7 @@ FROM mcr.microsoft.com/powershell:latest
 EXPOSE 8000
 
 # Installer Python pour le serveur HTTP
-RUN apt-get update && apt-get upgrade -y && apt-get install -y python3 pip
+RUN apt-get update && apt-get upgrade -y && apt-get install -y python3
 
 # Copier le script PowerShell dans le conteneur
 COPY resources/cgi-bin/*.ps1 /cgi-bin/
