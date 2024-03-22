@@ -22,8 +22,8 @@
 
         <!-- Service CGI -->
         <fileSet>
-            <directory>${basedir}/src/config/cgi-bin</directory>
-            <outputDirectory>htdocs/cgi-bin</outputDirectory>
+            <directory>${basedir}/resources/cgi-bin</directory>
+            <outputDirectory>resources/cgi-bin</outputDirectory>
             <fileMode>0555</fileMode>
             <directoryMode>0755</directoryMode>
         </fileSet>

@@ -26,7 +26,7 @@ $HOSTNAME = $env:QUERY_STRING
 # Génère la date actuelle
 $nbMinutes = Get-Random -Minimum 5 -Maximum 21
 $DATE = (Get-Date).AddMinutes($nbMinutes).ToString("s")
-#$HOST_PASSWORD = -join ((65..90) + (97..122) + (48..57) | Get-Random -Count 25 | ForEach-Object {[char]$_})
+$HOST_PASSWORD = -join ((65..90) + (97..122) + (48..57) | Get-Random -Count 25 | ForEach-Object {[char]$_})
 
 # Construit le JSON de réponse
 $JSON="{""host"": ""$HOSTNAME"", ""password"": ""$HOST_PASSWORD"", ""validity"": ""$DATE""}"

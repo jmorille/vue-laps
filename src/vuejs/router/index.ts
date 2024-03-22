@@ -123,27 +123,27 @@ const router = createRouter({
  */
 router.beforeEach((to) => {
   if (!to.meta.allowAnonymous ) {
-      const logger: Logger = (inject('logger') as RootLogger).getLogger('Router');
+      //const logger: Logger = (inject('logger') as RootLogger).getLogger('Router');
       const keycloak = inject(keycloakSymbol) as VueKeycloakInstance;
       const isAuthenticated = keycloak.authenticated;
       if (!isAuthenticated ) {
-        logger.info(`[rooter] isAuthenticated=${isAuthenticated} to=${to.path}`);
+        //logger.info(`[rooter] isAuthenticated=${isAuthenticated} to=${to.path}`);
         // @ts-ignore
         if (keycloak.createLoginUrl) {
           const redirectUri = window.location.origin + to.path;
           const keycloakLoginUrl =  keycloak.createLoginUrl({ redirectUri });
-          logger.info(`Redirect To=${redirectUri} with=${keycloakLoginUrl}`);
+          //logger.info(`Redirect To=${redirectUri} with=${keycloakLoginUrl}`);
           window.location.replace(keycloakLoginUrl);
         } else {
           // This should never occur
-          logger.error(`No createLoginUrl: Keycloak ready=${keycloak.ready}`);
+          //logger.error(`No createLoginUrl: Keycloak ready=${keycloak.ready}`);
           router.push( {name:'Home', replace: true });
         }
       } else if (keycloak.hasResourceRole && keycloak.hasResourceRole("user"))  {
         //console.log(`[rooter] resourceAccess=${JSON.stringify(keycloak.resourceAccess)} to=${to.path}`);
-        logger.info(`[rooter] isUser Authenticated=${isAuthenticated} to=${to.path}`);
+        //logger.info(`[rooter] isUser Authenticated=${isAuthenticated} to=${to.path}`);
       } else {
-        logger.info(`[rooter] Redirect Forbidden instead of path to=${to.path}`);
+        //logger.info(`[rooter] Redirect Forbidden instead of path to=${to.path}`);
         router.push( {name:'Forbidden', replace: true });
       }
   }

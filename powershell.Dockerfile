@@ -9,7 +9,7 @@ EXPOSE 8000
 RUN apt-get update && apt-get upgrade -y && apt-get install -y python3 pip
 
 # Copier le script PowerShell dans le conteneur
-COPY src/config/cgi-bin/*.ps1 /cgi-bin/
+COPY resources/cgi-bin/*.ps1 /cgi-bin/
 
 # cgi_directories This defaults to ['/cgi-bin', '/htbin']
 #  --directory /DATA/bfflaps

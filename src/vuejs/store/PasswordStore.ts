@@ -1,5 +1,5 @@
 import {defineStore} from "pinia";
-import { inject, ref, watch } from 'vue';
+import { computed, inject, ref, watch } from 'vue';
 import dayjs from "dayjs";
 
 // Type
@@ -15,6 +15,10 @@ export const usePasswordStore = defineStore('password', () => {
     const serverList:Ref<ServerVO[]> =  ref([]);
 
     const error: Ref<Error | DisplayError | undefined> = ref();
+
+    const host:Ref<string|undefined> = ref();
+    const password:Ref<PasswordVO|undefined> =  ref();
+
 
 
     function fetchServerList(): Promise<ServerVO[]> {
@@ -56,7 +60,8 @@ export const usePasswordStore = defineStore('password', () => {
 
     return {
         serverList, fetchServerList,
-        error, getPassword
+        error, getPassword,
+        host, password
     };
 
 

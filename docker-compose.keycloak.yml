@@ -17,7 +17,9 @@ services:
       KC_DB_PASSWORD: keycloak
       KC_HOSTNAME: keycloak.home.loc
     volumes:
-        - ./src/config/keycloak/realm-local.json:/opt/keycloak/data/import/realm-local.json
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
+      - ./src/config/keycloak/realm-local.json:/opt/keycloak/data/import/realm-local.json
     command: "start --optimized --import-realm"
     #    command: "start --optimized"
     depends_on:
@@ -37,6 +39,8 @@ services:
       POSTGRES_USER: keycloak
       POSTGRES_PASSWORD: keycloak
     volumes:
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
       - keycloak-data:/var/lib/postgresql/data
     networks:
       - keycloak-network
