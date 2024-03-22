@@ -1,4 +1,4 @@
-#!/opt/microsoft/powershell/7/pwsh
+#!/bin/pwsh
 
 # Vérifie si le script est exécuté en tant que CGI
 #if (-not $env:GATEWAY_INTERFACE) {

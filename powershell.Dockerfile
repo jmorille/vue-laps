@@ -9,9 +9,8 @@ EXPOSE 8000
 RUN apt-get update && apt-get upgrade -y && apt-get install -y python3 pip curl
 
 # Copier le script PowerShell dans le conteneur
-COPY resources/cgi-bin/*.ps1 /cgi-bin/
-
+COPY ./resources/cgi-bin/*.ps1 /cgi-bin/
 # cgi_directories This defaults to ['/cgi-bin', '/htbin']
 #  --directory /DATA/bfflaps
-#CMD "pwsh -Command python3 -m http.server  --cgi 8000"
-CMD ["python3", "-m", "http.server", "--bind", "0.0.0.0", "--cgi", "8000"]
+CMD "python3 -m http.server --bind 0.0.0.0 --cgi 8000"
+#CMD ["python3", "-m", "http.server", "--bind", "0.0.0.0", "--cgi", "8000"]

@@ -5,6 +5,7 @@ services:
     build:
       dockerfile: ./keycloak.Dockerfile
     container_name: keycloak
+    restart: unless-stopped
     ports:
       - "8443:8443"
 #      - "8080:8080"
@@ -25,13 +26,13 @@ services:
     depends_on:
       - postgres
     networks:
-      - app-network
       - keycloak-network
+#      - app-network
 
   postgres:
     image: postgres:latest
     container_name: postgres
-    restart: always
+    restart: unless-stopped
 #    ports:
 #      - "8080:8080"
     environment:
@@ -42,6 +43,8 @@ services:
       - /etc/timezone:/etc/timezone:ro
       - /etc/localtime:/etc/localtime:ro
       - keycloak-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "keycloak"]
     networks:
       - keycloak-network
 
@@ -59,5 +62,5 @@ volumes:
 networks:
   keycloak-network:
     driver: bridge
-  app-network:
-    driver: bridge
+#  app-network:
+#    driver: bridge
