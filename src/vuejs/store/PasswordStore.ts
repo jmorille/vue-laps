@@ -16,9 +16,8 @@ export const usePasswordStore = defineStore('password', () => {
 
     const error: Ref<Error | DisplayError | undefined> = ref();
 
-    const host:Ref<string|undefined> = ref();
-    const password:Ref<PasswordVO|undefined> =  ref();
-
+    //const host:Ref<string|undefined> = ref();
+    //const password:Ref<PasswordVO|undefined> =  ref();
 
 
     function fetchServerList(): Promise<ServerVO[]> {
@@ -35,11 +34,14 @@ export const usePasswordStore = defineStore('password', () => {
           });
     }
 
-    function getPassword(host: string|undefined): Promise<PasswordVO> {
+    async function getPassword(host: string|undefined): Promise<PasswordVO> {
         if (!host) {
             return Promise.reject("No Host");
         }
         // Check Password in List
+        if (serverList.value.length==0) {
+          await fetchServerList();
+        }
         const serverMaths =  serverList.value.filter( server => server.host === host);
         const server = serverMaths.length == 1 ? serverMaths[0] : undefined;
         if ( !server ) {
@@ -61,7 +63,7 @@ export const usePasswordStore = defineStore('password', () => {
     return {
         serverList, fetchServerList,
         error, getPassword,
-        host, password
+        //host, password
     };
 
 
