@@ -28,8 +28,8 @@
         </fileSet>
         <!-- LAPS : App script   -->
         <fileSet>
-            <directory>${basedir}/src/config/cgi-bin</directory>
-            <outputDirectory>laps/src/config/cgi-bin</outputDirectory>
+            <directory>${basedir}/resources/cgi-bin</directory>
+            <outputDirectory>laps/resources/cgi-bin</outputDirectory>
             <filtered>false</filtered>
             <fileMode>0555</fileMode>
             <directoryMode>0755</directoryMode>
