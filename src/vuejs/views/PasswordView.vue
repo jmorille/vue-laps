@@ -30,6 +30,7 @@ const password:Ref<PasswordVO|undefined> = ref();
 // Notify
 const loading = ref(false);
 const snackbar = ref(false);
+const timeout = ref(1000);
 const refreshDuration = ref(0);
 
 
@@ -56,12 +57,16 @@ const refreshDuration = ref(0);
 
 </script>
 <template>
+
+
   <v-container fluid>
     <v-progress-linear  indeterminate  v-if="loading"></v-progress-linear >
     <password-card :password="password" v-if="password"></password-card>
 
-    <v-snackbar v-model="snackbar" :timeout="2000" color="success" rounded="true" variant="outlined" location="right bottom" >
-      Loading in <strong>{{refreshDuration}}</strong> ms.
+
+    <v-snackbar v-model="snackbar" :timeout="timeout"  color="success" location="right bottom"
+                variant="tonal" elevation="24" rounded="pill" class="ma-2">
+      {{ $t('notify.refreshMs', { durationMs: refreshDuration }) }}
     </v-snackbar>
   </v-container>
 </template>

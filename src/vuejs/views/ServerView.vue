@@ -35,6 +35,7 @@
     });
   });
 
+
   // data
   const search =  ref();
   const sortBy = ref([]);
@@ -100,5 +101,10 @@
         </template>
       </v-data-table-virtual>
       </div>
+
+    <v-snackbar v-model="snackbar" :timeout="timeout"  color="success" location="right bottom"
+                variant="tonal" elevation="24" rounded="pill" class="ma-2">
+      {{ $t('notify.refreshMs', { durationMs: refreshDuration }) }}
+    </v-snackbar>
   </v-container>
 </template>
