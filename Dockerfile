@@ -169,5 +169,6 @@ RUN touch ${APP_DIR}/conf-apache/app-rp-password.conf \
 #ENV APP_DIR=${APP_DIR}
 ENV APP_DIR=${APP_DIR}
 CMD envsubst < /DATA/vuelaps/resources/vue/config.template > /DATA/vuelaps/resources/vue/config \
- && PASSWORD=$(echo "${API_LOGIN}:${API_PASSWORD}" | base64) echo "RequestHeader set Authorization \"Basic $PASSWORD\"" > ${APP_DIR}/conf-apache/app-rp-password.conf \
+ && APACHE_RP_BASIC_AUTH=$(echo "${API_LOGIN}:${API_PASSWORD}" | base64) \
+ && echo "RequestHeader set Authorization \"Basic ${APACHE_RP_BASIC_AUTH}\"" > ${APP_DIR}/conf-apache/app-rp-password.conf \
  && httpd-foreground
