@@ -1,6 +1,6 @@
 <script setup lang="ts">
 
-  import { computed, inject, onMounted, onUnmounted, type PropType, type Ref, ref, watch } from 'vue';
+  import { computed, inject, onMounted, onUnmounted, type PropType, type Ref, ref } from 'vue';
 
   import dayjs, { type Dayjs } from 'dayjs';
 

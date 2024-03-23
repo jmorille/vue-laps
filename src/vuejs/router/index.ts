@@ -5,7 +5,7 @@ import {inject} from "vue";
 import VueKeyCloak from "@dsb-norge/vue-keycloak-js";
 
 // Type
-import type {Logger, RootLogger} from "loglevel";
+//import type {Logger, RootLogger} from "loglevel";
 import type { VueKeycloakInstance } from "@dsb-norge/vue-keycloak-js/dist/types";
 import type { RouteRecordRaw } from 'vue-router';
 

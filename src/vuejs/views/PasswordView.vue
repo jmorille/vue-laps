@@ -4,7 +4,6 @@ import type {Logger, RootLogger} from "loglevel";
 
 
 // Component
-import PasswordElement from "@/components/servers/PasswordElement.vue";
 import PasswordCard from "@/components/servers/PasswordCard.vue";
 
 import dayjs from 'dayjs';
@@ -46,8 +45,9 @@ const refreshDuration = ref(0);
         loading.value = false;
         refreshDuration.value = dayjs.duration(end.diff(begin)).asMilliseconds();
         snackbar.value=true;
-      }).catch(err => {
+      }).catch(() => {
         loading.value = false;
+
       });
   }
 });

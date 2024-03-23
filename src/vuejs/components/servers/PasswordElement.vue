@@ -19,6 +19,8 @@ const store = usePasswordStore();
 
 // Feature
 const {copy, copied, isSupported: isClipboardSupport} = useClipboard();
+// Display
+const iconClipboard = computed(() => (copied.value ? 'mdi-clipboard-check-outline' : 'mdi-clipboard-outline'));
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const props = defineProps({

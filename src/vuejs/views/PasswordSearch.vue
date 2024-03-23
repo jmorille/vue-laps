@@ -26,7 +26,9 @@ const store = usePasswordStore();
 const serverList = computed(( ()=> store.serverList ));
 
 onMounted(() => {
-  store.fetchServerList();
+  store.fetchServerList().then(() => {
+    logger.debug( `Server List fetched`);
+  });
 });
 
 // Autocomplete
@@ -56,7 +58,7 @@ const hostnameList = ref([]);
     </v-autocomplete>
 
     <v-alert type="error" title="Query error" v-if="store.error">{{ store.error }}</v-alert>
-    <div v-for="host in hostnameList">
+    <div v-for="host in hostnameList" :key="host">
       <password-element :host="host" ></password-element>
     </div>
 
