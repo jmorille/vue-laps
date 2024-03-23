@@ -60,7 +60,8 @@ RUN LINE_IDX=$(( $(grep -n "Include conf-available/serve" /etc/apache2/sites-ena
 COPY ./resources/cgi-bin/*.ps1 /usr/lib/cgi-bin/
 RUN mkdir -p /var/www/passwd/ \
  && mkdir -p /var/www/certs/ \
- && cd /var/www/certs/ && mkcert  -ecdsa -cert-file powershell.pem -key-file powershell-key.pem  powershell powershell.localhost localhost 127.0.0.1
+ && cd /var/www/certs/ \
+ && mkcert  -ecdsa -cert-file powershell.pem -key-file powershell-key.pem  powershell powershell.localhost localhost 127.0.0.1
 
 # Start Command
 # ##############################################
