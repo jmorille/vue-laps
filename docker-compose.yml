@@ -33,6 +33,7 @@ services:
     ports:
       - "8000:8000"
     environment:
+      TZ: "Europe/Paris"
       API_LOGIN: "api"
       API_PASSWORD: "api-password"
     volumes:
