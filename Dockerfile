@@ -162,10 +162,11 @@ RUN mv ${APP_DIR}/resources/vue/config  ${APP_DIR}/resources/vue/config.template
     && chown -R www-data:www-data  ${APP_DIR}/resources/vue
 
 RUN touch ${APP_DIR}/conf-apache/app-rp-password.conf \
-    && chown -R www-data:www-data ${APP_DIR}/conf-apache/app-rp-password.conf \
-    && mkdir -p ${APP_DIR}/cert-apache \
-    && touch -p ${APP_DIR}/cert-apache/README.md \
-    && chown -R www-data:www-data ${APP_DIR}/cert-apache
+    && chown -R www-data:www-data ${APP_DIR}/conf-apache/app-rp-password.conf
+
+RUN mkdir -p ${APP_DIR}/cert-apache \
+ && touch -p ${APP_DIR}/cert-apache/README.md \
+ && chown -R www-data:www-data ${APP_DIR}/cert-apache \
 
 #USER www-data:www-data
 #USER 33
