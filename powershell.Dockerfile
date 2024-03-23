@@ -54,6 +54,11 @@ RUN LINE_IDX=$(( $(grep -n "Include conf-available/serve" /etc/apache2/sites-ena
   && sed -i "${LINE_IDX}i  $LOC_CGI" /etc/apache2/sites-enabled/000-default.conf  \
   && grep -v '#' /etc/apache2/sites-enabled/000-default.conf
 
+# Index HTML
+# ##############################################
+RUN echo "<html><head><title>LAPS Password API</title></head>" > /var/www/html/index.html \
+ && echo "<body><h1>LAPS Password API</h1>"   >> /var/www/html/index.html \
+ && echo "</body></html>"    >> /var/www/html/index.html
 
 # Copier le script PowerShell dans le conteneur
 # ##############################################

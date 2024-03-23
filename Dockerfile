@@ -165,8 +165,11 @@ RUN touch ${APP_DIR}/conf-apache/app-rp-password.conf \
     && chown -R www-data:www-data ${APP_DIR}/conf-apache/app-rp-password.conf
 
 RUN mkdir -p ${APP_DIR}/cert-apache \
+ && mkdir -p /var/www \
  && touch  ${APP_DIR}/cert-apache/README.md \
- && chown -R www-data:www-data ${APP_DIR}/cert-apache
+ && touch  /var/www/README.md \
+ && chown -R www-data:www-data ${APP_DIR}/cert-apache \
+ && chown -R www-data:www-data /var/www
 
 #USER www-data:www-data
 #USER 33
@@ -178,6 +181,6 @@ CMD envsubst < /DATA/vuelaps/resources/vue/config.template > /DATA/vuelaps/resou
  && echo "RequestHeader set Authorization \"Basic ${APACHE_RP_BASIC_AUTH}\"" > ${APP_DIR}/conf-apache/app-rp-password.conf \
  ## Certificat Generator
  && cd ${APP_DIR}/cert-apache \
- && mkcert  -ecdsa -cert-file powershell.pem -key-file powershell-key.pem $HTTPD_SERVER_NAME $HTTPD_SERVER_ALIAS \
+# && mkcert  -ecdsa -cert-file powershell.pem -key-file powershell-key.pem $HTTPD_SERVER_NAME $HTTPD_SERVER_ALIAS \
  ## Run Apache
  && httpd-foreground
