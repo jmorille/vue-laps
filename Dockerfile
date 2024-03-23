@@ -181,6 +181,6 @@ CMD envsubst < /DATA/vuelaps/resources/vue/config.template > /DATA/vuelaps/resou
  && echo "RequestHeader set Authorization \"Basic ${APACHE_RP_BASIC_AUTH}\"" > ${APP_DIR}/conf-apache/app-rp-password.conf \
  ## Certificat Generator
  && cd ${APP_DIR}/cert-apache \
- && mkcert  -ecdsa -cert-file powershell.pem -key-file powershell-key.pem $HTTPD_SERVER_NAME $HTTPD_SERVER_ALIAS \
+ && mkcert  -ecdsa -cert-file laps.pem -key-file laps-key.pem $HTTPD_SERVER_NAME $HTTPD_SERVER_ALIAS \
  ## Run Apache
  && httpd-foreground

@@ -56,9 +56,12 @@ RUN LINE_IDX=$(( $(grep -n "Include conf-available/serve" /etc/apache2/sites-ena
 
 # Index HTML
 # ##############################################
-RUN echo "<html><head><title>LAPS Password API</title></head>" > /var/www/html/index.html \
- && echo "<body><h1>LAPS Password API</h1>"   >> /var/www/html/index.html \
- && echo "</body></html>"    >> /var/www/html/index.html
+RUN echo "<html><head><title>LAPS Password API</title></head>"    > /var/www/html/index.html \
+ && echo "<body>"                                                >> /var/www/html/index.html \
+ && echo '<h1 style="text-align: center;line-height: 400px;">'   >> /var/www/html/index.html \
+ && echo "LAPS Password API"                                     >> /var/www/html/index.html \
+ && echo "</h1>"                                                 >> /var/www/html/index.html \
+ && echo "</body></html>"                                        >> /var/www/html/index.html
 
 # Copier le script PowerShell dans le conteneur
 # ##############################################
