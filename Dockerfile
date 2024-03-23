@@ -138,7 +138,7 @@ RUN LINE_IDX=$(( $(grep -n "auth_basic_module" /usr/local/apache2/conf/httpd.con
   &&  echo "               --> Insert Load Module in line ${LINE_IDX}" \
   && sed -i "${LINE_IDX}i LoadModule oauth2_module modules/mod_oauth2.so" /usr/local/apache2/conf/httpd.conf \
   && sed -i "${LINE_IDX}i LoadModule auth_openidc_module modules/mod_auth_openidc.so" /usr/local/apache2/conf/httpd.conf \
-  && grep mod_auth_ /usr/local/apache2/conf/httpd.conf
+  && grep  mod_ /usr/local/apache2/conf/httpd.conf |grep -v "#"
 
 # ###  HTTPD  config
 # ### #################################
@@ -169,6 +169,6 @@ RUN touch ${APP_DIR}/conf-apache/app-rp-password.conf \
 #ENV APP_DIR=${APP_DIR}
 ENV APP_DIR=${APP_DIR}
 CMD envsubst < /DATA/vuelaps/resources/vue/config.template > /DATA/vuelaps/resources/vue/config \
- && APACHE_RP_BASIC_AUTH=$(echo "${API_LOGIN}:${API_PASSWORD}" | base64) \
+ && APACHE_RP_BASIC_AUTH=$(echo "${API_LOGIN}:${API_PASSWORD}" | base64 --wrap 0) \
  && echo "RequestHeader set Authorization \"Basic ${APACHE_RP_BASIC_AUTH}\"" > ${APP_DIR}/conf-apache/app-rp-password.conf \
  && httpd-foreground
