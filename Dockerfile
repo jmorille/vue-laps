@@ -162,13 +162,20 @@ RUN mv ${APP_DIR}/resources/vue/config  ${APP_DIR}/resources/vue/config.template
     && chown -R www-data:www-data  ${APP_DIR}/resources/vue
 
 RUN touch ${APP_DIR}/conf-apache/app-rp-password.conf \
-    && chown -R www-data:www-data ${APP_DIR}/conf-apache/app-rp-password.conf
+    && chown -R www-data:www-data ${APP_DIR}/conf-apache/app-rp-password.conf \
+    && mkdir -p ${APP_DIR}/cert-apache \
+    && chown -R www-data:www-data ${APP_DIR}/cert-apache
 
 #USER www-data:www-data
 #USER 33
 #ENV APP_DIR=${APP_DIR}
 ENV APP_DIR=${APP_DIR}
 CMD envsubst < /DATA/vuelaps/resources/vue/config.template > /DATA/vuelaps/resources/vue/config \
+ # API PAssword converter
  && APACHE_RP_BASIC_AUTH=$(printf "${API_LOGIN}:${API_PASSWORD}" | base64) \
  && echo "RequestHeader set Authorization \"Basic ${APACHE_RP_BASIC_AUTH}\"" > ${APP_DIR}/conf-apache/app-rp-password.conf \
+ ## Certificat Generator
+ && cd ${APP_DIR}/cert-apache \
+ && mkcert  -ecdsa -cert-file powershell.pem -key-file powershell-key.pem $HTTPD_SERVER_NAME $HTTPD_SERVER_ALIAS \
+ ## Run Apache
  && httpd-foreground
