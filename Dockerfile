@@ -28,7 +28,7 @@ RUN apt update \
      libapache2-mod-auth-openidc libapache2-mod-oauth2 \
      libapache2-mod-lookup-identity \
      libapache2-mod-evasive libapache2-mod-log-slow \
-     libapache2-mod-mono curl gettext
+     libapache2-mod-mono curl gettext mkcert
 
 
 #  grep LoadModule /usr/local/apache2/conf/httpd.conf | grep status
