@@ -3,16 +3,16 @@ services:
 
   laps:
 #    image: local/vue-laps:latest
-    image: ghcr.io/jmorille/vue-laps:master
+    image: ghcr.io/jmorille/vue-laps:${LAPS_VERSION}
     container_name: laps
     restart: always
     user: '33:33'
     ports:
       - "80:80"
     env_file:
+      - laps-config.env
       - laps-api.env
       - laps-keycloak.env
-      - laps-config.env
     environment:
       TZ: "Europe/Paris"
       APACHE_POWERSHELL_HOST: "powershell"

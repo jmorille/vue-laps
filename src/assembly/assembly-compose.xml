@@ -59,6 +59,16 @@
                 <include>laps-*.env</include>
             </includes>
         </fileSet>
+        <!-- LAPS :Env Config   -->
+        <fileSet>
+            <directory>${basedir}/src/config/compose</directory>
+            <outputDirectory>laps</outputDirectory>
+            <filtered>true</filtered>
+            <fileMode>0555</fileMode>
+            <directoryMode>0755</directoryMode>
+        </fileSet>
+
+
     </fileSets>
 
     <files>
