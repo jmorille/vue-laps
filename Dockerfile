@@ -165,7 +165,7 @@ RUN touch ${APP_DIR}/conf-apache/app-rp-password.conf \
     && chown -R www-data:www-data ${APP_DIR}/conf-apache/app-rp-password.conf
 
 RUN mkdir -p ${APP_DIR}/cert-apache \
- && touch -p ${APP_DIR}/cert-apache/README.md \
+ && touch  ${APP_DIR}/cert-apache/README.md \
  && chown -R www-data:www-data ${APP_DIR}/cert-apache
 
 #USER www-data:www-data
