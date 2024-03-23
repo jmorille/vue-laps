@@ -1,6 +1,5 @@
 <script setup lang="ts">
   import { computed, inject, onMounted, ref } from 'vue';
-import {watchDebounced} from '@vueuse/core';
 import {useI18n} from 'vue-i18n';
 import type {Logger, RootLogger} from "loglevel";
 
@@ -16,46 +15,54 @@ const logger: Logger = (inject('logger') as RootLogger).getLogger('PasswordSearc
 // I18n
 const {t} = useI18n();
 
+// Notify
+const loading = ref(false);
+const snackbar = ref(false);
+const timeout = ref(1000);
+const refreshDuration = ref(0);
+
 // Store
 const store = usePasswordStore();
 const serverList = computed(( ()=> store.serverList ));
 
-  onMounted(() => {
-    store.fetchServerList();
-  });
+onMounted(() => {
+  store.fetchServerList();
+});
 
 // Autocomplete
 const serverHost = computed( () => serverList.value.map( server => server.host));
 
 // Config
-const hostnameLocal = ref();
-const hostNameSearch = ref();
+const hostnameList = ref([]);
 
 
-watchDebounced(
-    hostNameSearch,
-    () => {
-      hostnameLocal.value = hostNameSearch.value;
-      logger.debug(`Define search for ${hostnameLocal.value}`);
-    },
-    {debounce: 300, maxWait: 5000}
-);
 
 </script>
 <template>
   <v-container fluid>
+    <v-progress-linear  indeterminate  v-if="loading"></v-progress-linear >
     <v-autocomplete
                   role="search"
                   prepend-inner-icon="mdi-magnify"
                   :label="t('input.hostName')"
                   variant="underlined"
-                  v-model="hostNameSearch"
+                  v-model="hostnameList"
                   :items="serverHost"
-                  clearable>
+                  density="comfortable"
+                  chips
+                  closable-chips
+                  multiple
+                  >
     </v-autocomplete>
 
     <v-alert type="error" title="Query error" v-if="store.error">{{ store.error }}</v-alert>
+    <div v-for="host in hostnameList">
+      <password-element :host="host" ></password-element>
+    </div>
 
-    <password-element :host="hostnameLocal" v-if="hostnameLocal"></password-element>
+    <v-snackbar v-model="snackbar" :timeout="timeout"  color="success" location="right bottom"
+                variant="tonal" elevation="24" rounded="pill" class="ma-2">
+      {{ $t('notify.refreshMs', { durationMs: refreshDuration }) }}
+    </v-snackbar>
   </v-container>
 </template>
