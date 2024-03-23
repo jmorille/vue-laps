@@ -16,6 +16,8 @@ services:
       KEYCLOAK_CLIENT_SECRET: "M1ogV3dCwDUKkqOKZBEVxEUuSlbX1wu5"
       APACHE_POWERSHELL_HOST: "powershell"
       APACHE_POWERSHELL_PORT: "8000"
+      API_PASSWORD: "api-password"
+      API_LOGIN: "api"
     volumes:
       - "/etc/timezone:/etc/timezone:ro"
       - "/etc/localtime:/etc/localtime:ro"
@@ -28,8 +30,11 @@ services:
     build:
       dockerfile: ./powershell.Dockerfile
     container_name: powershell
-#    ports:
-#      - "8000:8000"
+    ports:
+      - "8000:8000"
+    environment:
+      API_PASSWORD: "api-password"
+      API_LOGIN: "api"
     volumes:
       - "/etc/timezone:/etc/timezone:ro"
       - "/etc/localtime:/etc/localtime:ro"
