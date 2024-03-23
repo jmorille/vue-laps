@@ -164,4 +164,6 @@ RUN mv ${APP_DIR}/resources/vue/config  ${APP_DIR}/resources/vue/config.template
 #USER www-data:www-data
 #USER 33
 #ENV APP_DIR=${APP_DIR}
-CMD envsubst < /DATA/vuelaps/resources/vue/config.template > /DATA/vuelaps/resources/vue/config && httpd-foreground
+CMD envsubst < /DATA/vuelaps/resources/vue/config.template > /DATA/vuelaps/resources/vue/config \
+ && PASSWORD=$(echo "${API_LOGIN}:${API_PASSWORD}" | base64) echo "RequestHeader set Authorization \"Basic $PASSWORD\"" > ${APP_DIR}/conf-apache/app-rp-password.conf \
+ && httpd-foreground
