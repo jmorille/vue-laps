@@ -11,12 +11,10 @@ services:
       - "80:80"
     env_file:
       - laps-api.env
+      - laps-keycloak.env
+      - laps-config.env
     environment:
       TZ: "Europe/Paris"
-      HTTPD_SERVER_NAME: "laps.localhost"
-      HTTPD_SERVER_ALIAS: "127.0.0.1 localhost"
-      KEYCLOAK_DOMAIN: "keycloak.home.loc:8443"
-      KEYCLOAK_CLIENT_SECRET: "M1ogV3dCwDUKkqOKZBEVxEUuSlbX1wu5"
       APACHE_POWERSHELL_HOST: "powershell"
       APACHE_POWERSHELL_PORT: "8000"
     volumes:
