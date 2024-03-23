@@ -9,6 +9,7 @@ services:
     user: '33:33'
     ports:
       - "80:80"
+      - "443:443"
     env_file:
       - laps-config.env
       - laps-api.env

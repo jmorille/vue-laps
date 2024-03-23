@@ -140,6 +140,13 @@ RUN LINE_IDX=$(( $(grep -n "auth_basic_module" /usr/local/apache2/conf/httpd.con
   && sed -i "${LINE_IDX}i LoadModule auth_openidc_module modules/mod_auth_openidc.so" /usr/local/apache2/conf/httpd.conf \
   && grep  mod_ /usr/local/apache2/conf/httpd.conf |grep -v "#"
 
+# ###  HTTPS  config
+# ### #################################
+RUN LINE_IDX=$(( $(grep -n "Listen 80" /usr/local/apache2/conf/httpd.conf | cut -f1 -d: | head -1) + 1 )) \
+  &&  echo "               --> Insert Listen in line ${LINE_IDX}" \
+  && sed -i "${LINE_IDX}i Listen 443" /usr/local/apache2/conf/httpd.conf \
+  && grep  Listen /usr/local/apache2/conf/httpd.conf |grep -v "#" \
+
 # ###  HTTPD  config
 # ### #################################
 RUN mkdir -p /usr/local/apache2/conf.d/ \
