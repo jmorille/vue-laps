@@ -37,7 +37,17 @@
                 <include>*.ps1</include>
             </includes>
         </fileSet>
-
+        <!-- LAPS :Env Config   -->
+        <fileSet>
+            <directory>${basedir}</directory>
+            <outputDirectory>laps</outputDirectory>
+            <filtered>false</filtered>
+            <fileMode>0555</fileMode>
+            <directoryMode>0755</directoryMode>
+            <includes>
+                <include>laps-*.env</include>
+            </includes>
+        </fileSet>
     </fileSets>
 
     <files>

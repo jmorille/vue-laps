@@ -9,15 +9,16 @@ services:
     user: '33:33'
     ports:
       - "80:80"
+    env_file:
+      - laps-api.env
     environment:
+      TZ: "Europe/Paris"
       HTTPD_SERVER_NAME: "laps.localhost"
       HTTPD_SERVER_ALIAS: "127.0.0.1 localhost"
       KEYCLOAK_DOMAIN: "keycloak.home.loc:8443"
       KEYCLOAK_CLIENT_SECRET: "M1ogV3dCwDUKkqOKZBEVxEUuSlbX1wu5"
       APACHE_POWERSHELL_HOST: "powershell"
       APACHE_POWERSHELL_PORT: "8000"
-      API_LOGIN: "api"
-      API_PASSWORD: "api-password"
     volumes:
       - "/etc/timezone:/etc/timezone:ro"
       - "/etc/localtime:/etc/localtime:ro"
@@ -32,10 +33,10 @@ services:
     container_name: powershell
     ports:
       - "8000:8000"
+    env_file:
+      - laps-api.env
     environment:
       TZ: "Europe/Paris"
-      API_LOGIN: "api"
-      API_PASSWORD: "api-password"
     volumes:
       - "/etc/timezone:/etc/timezone:ro"
       - "/etc/localtime:/etc/localtime:ro"
