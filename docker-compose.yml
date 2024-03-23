@@ -29,8 +29,8 @@ services:
     build:
       dockerfile: ./powershell.Dockerfile
     container_name: powershell
-#    ports:
-#      - "8000:8000"
+    ports:
+      - "8000:8000"
     env_file:
       - laps-api.env
     environment:

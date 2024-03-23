@@ -8,11 +8,11 @@ WORKDIR /usr/lib/cgi-bin/
 
 # Installer Python pour le serveur HTTP
 RUN apt-get update && apt-get upgrade -y \
- && apt-get install -y curl \
+ && apt-get install -y curl mkcert  \
                        apache2 \
                        libapache2-mod-fcgid
 
-RUN a2enmod http2 unique_id cgi fcgid authnz_fcgi
+RUN a2enmod http2 ssl unique_id cgi fcgid authnz_fcgi
 
 # Apache Config
 # ##############################################
@@ -29,8 +29,14 @@ RUN sed -i \
 
 RUN LINE_IDX=$(( $(grep -n "DocumentRoot" /etc/apache2/sites-enabled/000-default.conf  | cut -f1 -d: | head -1) + 1 )) \
   &&  echo "               --> Insert Configuration in line ${LINE_IDX}" \
-  && sed -i "${LINE_IDX}i  Protocols h2 h2c http/1.1" /etc/apache2/sites-enabled/000-default.conf  \
-  && sed -i "${LINE_IDX}i  ServerSignature Off" /etc/apache2/sites-enabled/000-default.conf  \
+  && CFG_APACHE="# \n\t# Apache Config \n\t# ####################" \
+  && CFG_APACHE="${CFG_APACHE}\n\t ServerAlias powershell.localhost localhost 127.0.0.1" \
+  && CFG_APACHE="${CFG_APACHE}\n\t Protocols h2 h2c http/1.1" \
+  && CFG_APACHE="${CFG_APACHE}\n\t ServerSignature Off" \
+  && CFG_APACHE="${CFG_APACHE}\n\t SSLEngine on" \
+  && CFG_APACHE="${CFG_APACHE}\n\t SSLCertificateFile     /var/www/certs/powershell.pem" \
+  && CFG_APACHE="${CFG_APACHE}\n\t SSLCertificateKeyFile  /var/www/certs/powershell-key.pem" \
+  && sed -i "${LINE_IDX}i  ${CFG_APACHE}" /etc/apache2/sites-enabled/000-default.conf  \
   && grep -v '#' /etc/apache2/sites-enabled/000-default.conf
 
 # Access restriction
@@ -52,7 +58,9 @@ RUN LINE_IDX=$(( $(grep -n "Include conf-available/serve" /etc/apache2/sites-ena
 # Copier le script PowerShell dans le conteneur
 # ##############################################
 COPY ./resources/cgi-bin/*.ps1 /usr/lib/cgi-bin/
-RUN mkdir -p /var/www/passwd/
+RUN mkdir -p /var/www/passwd/ \
+ && mkdir -p /var/www/certs/ \
+ && cd /var/www/certs/ && mkcert  -ecdsa -cert-file powershell.pem -key-file powershell-key.pem -p12-file  powershell.p12 powershell powershell.localhost localhost 127.0.0.1
 
 # Start Command
 # ##############################################
