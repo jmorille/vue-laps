@@ -19,7 +19,7 @@ $HOSTNAME = $env:QUERY_STRING
 
 
 # Génère la date actuelle
-$nbMinutes = Get-Random -Minimum 65 -Maximum 81
+$nbMinutes = Get-Random -Minimum 125 -Maximum 141
 $DATE = (Get-Date).AddMinutes($nbMinutes).ToString("s")
 $HOST_PASSWORD = -join ((65..90) + (97..122) + (48..57) | Get-Random -Count 25 | ForEach-Object {[char]$_})
 

@@ -24,8 +24,12 @@ const store = usePasswordStore();
 
 // Feature
 const {copy, copied, isSupported: isClipboardSupport} = useClipboard();
+const {copy:copyHost, copied:copiedHost} = useClipboard();
+
+
 // Display
 const iconClipboard = computed(() => (copied.value ? 'mdi-clipboard-check-outline' : 'mdi-clipboard-outline'));
+const iconClipboardHost = computed(() => (copiedHost.value ? 'mdi-clipboard-check-outline' : 'mdi-clipboard-outline'));
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const props = defineProps({
@@ -92,6 +96,11 @@ function updatePassword(host: string | undefined) {
   }
 }
 
+function copyClipboardHost() {
+  logger.debug('[Click] copyClipboardHost');
+  const dataStr = pass.value ? pass.value.host : '';
+  return copyHost(dataStr);
+}
 
 
 
@@ -105,17 +114,28 @@ function updatePassword(host: string | undefined) {
       <template v-slot:loader>
         <v-progress-linear  color="green-lighten-3"  height="20" indeterminate :active="loading"></v-progress-linear >
       </template>
-      <v-card-title color="on-primary">{{ pass?.host }}</v-card-title>
+      <v-card-title color="on-primary">{{ pass?.host }}
+        <span v-if="pass">
+          <v-icon
+            role="button"
+            aria-label="Copy Clipboard Host"
+            @click="copyClipboardHost"
+            v-if="isClipboardSupport"
+            color="primary"
+            :icon="iconClipboardHost"></v-icon>
+        </span>
+      </v-card-title>
       <v-card-subtitle  color="on-primary"  v-if="pass">  {{ pass?.server?.description }}</v-card-subtitle>
       <v-card-text v-if="pass">
         <v-chip variant="elevated" rounded="pill">{{ pass?.password }}
-          <v-icon
+          <span><v-icon
             role="button"
             aria-label="Copy Clipboard Password"
             @click="copyClipboard"
             v-if="isClipboardSupport"
             color="primary"
             :icon="iconClipboard"></v-icon>
+          </span>
         </v-chip>
         <v-chip variant="elevated" rounded="pill">
           Fin: {{ validityHuman }}
@@ -124,7 +144,7 @@ function updatePassword(host: string | undefined) {
           Fin: {{ validityAgo }}
         </v-chip>
       </v-card-text>
-      <v-card-actions>
+      <v-card-actions v-if="pass">
 <!--        <v-switch-->
 <!--          v-model="autoUpdate"-->
 <!--          :disabled="isUpdating"-->
@@ -143,10 +163,7 @@ function updatePassword(host: string | undefined) {
           color="blue-grey-lighten-3"
           prepend-icon="mdi-update"
           v-on:click="refreshPassword"
-          v-t="'buttons.updateNow'"
-        >
-
-        </v-btn>
+        >{{ $t('buttons.updateNow')}}</v-btn>
       </v-card-actions>
     </v-card>
   </v-container>

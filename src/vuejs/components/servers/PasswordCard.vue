@@ -22,6 +22,7 @@
 
   // Feature
   const {copy, copied, isSupported: isClipboardSupport} = useClipboard();
+  const {copy:copyHost, copied:copiedHost} = useClipboard();
 
   const props = defineProps({
     password: Object as PropType<PasswordVO>
@@ -33,6 +34,7 @@
 
   // Display
   const iconClipboard = computed(() => (copied.value ? 'mdi-clipboard-check-outline' : 'mdi-clipboard-outline'));
+  const iconClipboardHost = computed(() => (copiedHost.value ? 'mdi-clipboard-check-outline' : 'mdi-clipboard-outline'));
 
   // Timer
   const now: Ref<Dayjs> = ref(dayjs())
@@ -59,13 +61,28 @@
     return copy(dataStr);
   }
 
+  function copyClipboardHost() {
+    logger.debug('[Click] copyClipboardHost');
+    const dataStr = pass.value ? pass.value.host : '';
+    return copyHost(dataStr);
+  }
+
 </script>
 
 <template>
   <v-container>
     <v-alert type="error" title="Query error" v-if="error">{{ error }}</v-alert>
     <v-card :id="pass?.host" variant="tonal" v-else>
-      <v-card-title color="on-primary">Host {{ pass?.host }}</v-card-title>
+      <v-card-title color="on-primary">
+        Host {{ pass?.host }}
+        <v-icon
+          role="button"
+          aria-label="Copy Clipboard Host"
+          @click="copyClipboardHost"
+          v-if="isClipboardSupport"
+          color="primary"
+          :icon="iconClipboardHost"></v-icon>
+      </v-card-title>
       <v-card-subtitle color="on-primary">  {{ pass?.server?.description }}
 
       </v-card-subtitle>
