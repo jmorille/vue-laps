@@ -11,8 +11,13 @@ import type {Logger, RootLogger} from "loglevel";
 // Date
 import dayjs, { type Dayjs } from 'dayjs';
 import { useClipboard } from '@vueuse/core';
+// Feature
+import duration from 'dayjs/plugin/duration';
+import relativeTime from 'dayjs/plugin/relativeTime';
 
-
+// Dayjs config
+dayjs.extend(relativeTime);
+dayjs.extend(duration);
 // Store
 const logger: Logger = (inject('logger') as RootLogger).getLogger('PasswordElement');
 const store = usePasswordStore();
@@ -65,6 +70,10 @@ watch(() => props.host, async (newHost) => {
   updatePassword(newHost);
 });
 
+function refreshPassword() {
+  updatePassword(props.host);
+}
+
 function updatePassword(host: string | undefined) {
   if (host) {
     loading.value=true;
@@ -115,6 +124,29 @@ function updatePassword(host: string | undefined) {
           Fin: {{ validityAgo }}
         </v-chip>
       </v-card-text>
+      <v-card-actions>
+<!--        <v-switch-->
+<!--          v-model="autoUpdate"-->
+<!--          :disabled="isUpdating"-->
+<!--          class="mt-0 ms-2"-->
+<!--          color="green-lighten-2"-->
+<!--          density="compact"-->
+<!--          label="Auto Update"-->
+<!--          hide-details-->
+<!--        ></v-switch>-->
+
+<!--        <v-spacer></v-spacer>-->
+
+        <v-btn
+          :loading="loading"
+          :variant="loading ? 'tonal' : undefined"
+          color="blue-grey-lighten-3"
+          prepend-icon="mdi-update"
+          @click="refreshPassword"
+        >
+          Update Now
+        </v-btn>
+      </v-card-actions>
     </v-card>
   </v-container>
 </template>

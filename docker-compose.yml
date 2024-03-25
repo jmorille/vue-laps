@@ -40,7 +40,6 @@ services:
       - "/etc/timezone:/etc/timezone:ro"
       - "/etc/localtime:/etc/localtime:ro"
       - "./resources/cgi-bin/password.ps1:/cgi-bin/password.ps1"
-#      - "./resources/cgi-bin/password.sh:/cgi-bin/password.sh"
     networks:
       - app-network
 

@@ -176,7 +176,7 @@ export default defineConfig({
     },
     proxy: {
       "/api": {
-        target: "http://laps.localhost",
+        target: "https://laps.localhost",
         //target: "http://localhost:8002",
         changeOrigin: true,
         ws: true,
@@ -205,7 +205,7 @@ export default defineConfig({
         },
       },
       "/cgi-bin": {
-        target: "http://laps.localhost",
+        target: "https://laps.localhost",
         //target: "http://localhost:8002",
         changeOrigin: true,
         ws: true,
