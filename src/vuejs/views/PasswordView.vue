@@ -1,14 +1,10 @@
 <script setup lang="ts">
-  import { inject, onMounted, type Ref, ref } from 'vue';
+  import { inject, onMounted,  ref } from 'vue';
 import type {Logger, RootLogger} from "loglevel";
 
 
 // Component
 import PasswordElement from "@/components/servers/PasswordElement.vue";
-
-import dayjs from 'dayjs';
-import { usePasswordStore } from '@/store/PasswordStore';
-import type { PasswordVO } from '@/model/api/PasswordVO';
 
 
 //  Logger
