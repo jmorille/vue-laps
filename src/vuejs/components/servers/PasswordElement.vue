@@ -142,9 +142,10 @@ function updatePassword(host: string | undefined) {
           :variant="loading ? 'tonal' : undefined"
           color="blue-grey-lighten-3"
           prepend-icon="mdi-update"
-          @click="refreshPassword"
+          v-on:click="refreshPassword"
+          v-t="'buttons.updateNow'"
         >
-          Update Now
+
         </v-btn>
       </v-card-actions>
     </v-card>

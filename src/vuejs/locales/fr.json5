@@ -17,6 +17,7 @@
   },
   buttons: {
     copyClipboard: 'Presse-Papier',
+    updateNow: 'Mise à jour',
     confirm: {
       yes: 'Oui',
       no: 'Non',
