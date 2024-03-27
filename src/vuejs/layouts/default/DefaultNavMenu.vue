@@ -30,7 +30,7 @@
 
 
 
-    <v-list-item role="navigation" aria-label="Got to Queue" prepend-icon="mdi-message-processing" to="/password" v-if="isAuthenticatedUser">
+    <v-list-item role="navigation" aria-label="Got to Queue" prepend-icon="mdi-server" to="/password" v-if="isAuthenticatedUser">
       <template v-slot:title>
         <div v-t="'menu.password'"></div>
       </template>

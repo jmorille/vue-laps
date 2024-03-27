@@ -22,7 +22,7 @@ services:
       - "/etc/timezone:/etc/timezone:ro"
       - "/etc/localtime:/etc/localtime:ro"
       - "./logs/httpd-vuelaps:/var/log/httpd/vuelaps/"
-      - "./resources/laps/server-password.json:/DATA/vuelaps/resources/laps/server-password.json"
+      - "./resources/laps/server-password.json:/DATA/vuelaps/resources/laps/server-password.json:ro"
     networks:
       - app-network
 

@@ -41,8 +41,9 @@
   const sortBy = ref([]);
 
 
-
+//
   const headers =[
+    { key: 'icon', title: 'Type', sortable: false, align: "center" },
     { key: 'name', title: 'Nom du serveur', sortable: true },
     { key: 'host', title: 'Hostname', sortable: true },
     { title: '', key: 'data-table-expand' },
@@ -89,7 +90,10 @@
         class="elevation-1"
         @click:row="(event:Event, item:any ) => serverRowlicked(event, item)">
 
-
+        <template v-slot:item.icon="{ item }">
+          <v-icon :icon="item.icon"  v-if="item.icon"></v-icon>
+          <v-icon icon="mdi-server"    v-else></v-icon>
+        </template>
 
         <!-- Expendable -->
         <template v-slot:expanded-row="{ columns, item }">

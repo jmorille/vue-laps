@@ -16,8 +16,6 @@ export const usePasswordStore = defineStore('password', () => {
 
     const error: Ref<Error | DisplayError | undefined> = ref();
 
-    //const host:Ref<string|undefined> = ref();
-    //const password:Ref<PasswordVO|undefined> =  ref();
 
 
     function fetchServerList(): Promise<ServerVO[]> {
@@ -29,6 +27,7 @@ export const usePasswordStore = defineStore('password', () => {
               return data;
           }).catch(err => {
             error.value = err;
+            serverList.value =[];
             logger.error(`Error fetch /api/server-password.json : ${err.message}`, err);
             return err;
           });

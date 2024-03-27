@@ -55,15 +55,33 @@ const hostnameList = ref([]);
                   closable-chips
                   multiple
                   >
-
+      <template v-slot:chip="{ props, item }">
+        <v-chip
+          v-bind="props"
+          :text="item.raw.name"
+        >
+          <template v-slot:prepend>
+            <v-icon :icon="item.raw.icon" v-if="item.raw.icon"></v-icon>
+            <v-icon icon="mdi-server" v-else></v-icon>
+          </template>
+        </v-chip>
+      </template>
 
       <template v-slot:item="{ props, item }">
         <v-list-item
           v-bind="props"
-          prepend-avatar="mdi-server-network"
           :subtitle="item.raw.description"
-          :title="item.raw.host"
-        ></v-list-item>
+        >
+
+          <template v-slot:title>
+            {{item.raw.name}} ( {{item.raw.host}} )
+          </template>
+
+          <template v-slot:prepend>
+            <v-icon :icon="item.raw.icon" v-if="item.raw.icon"></v-icon>
+            <v-icon icon="mdi-server" v-else></v-icon>
+          </template>
+        </v-list-item>
       </template>
     </v-autocomplete>
 

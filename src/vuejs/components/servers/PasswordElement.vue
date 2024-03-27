@@ -124,8 +124,14 @@ function copyClipboardPassword() {
       <template v-slot:loader>
         <v-progress-linear  color="green-lighten-3"  height="20" indeterminate :active="loading"></v-progress-linear >
       </template>
-      <v-card-title color="on-primary">{{ pass?.host }}
-        <span v-if="pass">
+      <v-card-title color="on-primary">
+
+<!--        <span style="padding: 5px">-->
+<!--          <v-icon :icon="pass?.icon"  v-if="pass?.icon"></v-icon>-->
+<!--          <v-icon icon="mdi-server"    v-else></v-icon>-->
+<!--        </span>-->
+        <span>{{ pass?.host }}</span>
+        <span v-if="pass" style="padding: 10px">
           <v-icon
             role="button"
             aria-label="Copy Clipboard Host"
