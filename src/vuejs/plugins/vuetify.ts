@@ -11,6 +11,8 @@ import { md3 } from 'vuetify/blueprints';
 // Composables
 import 'vuetify/styles';
 import { createVuetify } from 'vuetify';
+import { aliases, mdi } from 'vuetify/iconsets/mdi';
+
 import { mdiDarkTheme, mdiLightTheme } from '@/plugins/themeMdiDefault';
 
 
@@ -38,6 +40,13 @@ export const vuetify= createVuetify({
      fallback: 'fr',
     messages: { fr }
    // adapter: createVueI18nAdapter({ i18n, useI18n }),
+  },
+  icons: {
+    defaultSet: 'mdi',
+    aliases,
+    sets: {
+      mdi,
+    },
   },
   theme: {
     cspNonce: 'dQw4w9WgXcQ',

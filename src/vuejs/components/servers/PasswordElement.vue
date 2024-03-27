@@ -25,11 +25,13 @@ const store = usePasswordStore();
 // Feature
 const {copy, copied, isSupported: isClipboardSupport} = useClipboard();
 const {copy:copyHost, copied:copiedHost} = useClipboard();
+const {copy:copyLogin, copied:copiedLogin} = useClipboard();
 
 
 // Display
 const iconClipboard = computed(() => (copied.value ? 'mdi-clipboard-check-outline' : 'mdi-clipboard-outline'));
 const iconClipboardHost = computed(() => (copiedHost.value ? 'mdi-clipboard-check-outline' : 'mdi-clipboard-outline'));
+const iconClipboardLogin = computed(() => (copiedLogin.value ? 'mdi-clipboard-check-outline' : 'mdi-clipboard-outline'));
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const props = defineProps({
@@ -64,11 +66,7 @@ onUnmounted( () => {
   window.clearInterval(interval);
 });
 
-function copyClipboard() {
-  logger.debug('[Click] copyClipboard');
-  const dataStr = pass.value ? pass.value.password : '';
-  return copy(dataStr);
-}
+
 
 watch(() => props.host, async (newHost) => {
   updatePassword(newHost);
@@ -102,6 +100,16 @@ function copyClipboardHost() {
   return copyHost(dataStr);
 }
 
+function copyClipboardLogin() {
+  logger.debug('[Click] copyClipboard Login');
+  const dataStr = pass.value ? pass.value.user : '';
+  return copyLogin(dataStr);
+}
+function copyClipboardPassword() {
+  logger.debug('[Click] copyClipboard Password');
+  const dataStr = pass.value ? pass.value.password : '';
+  return copy(dataStr);
+}
 
 
 </script>
@@ -110,7 +118,9 @@ function copyClipboardHost() {
   <v-container>
 
     <v-alert type="error" title="Query error" v-if="error">{{ error }}</v-alert>
-    <v-card :id="pass?.host" variant="tonal" v-else>
+    <v-card :id="pass?.host" variant="tonal"  v-else>
+
+
       <template v-slot:loader>
         <v-progress-linear  color="green-lighten-3"  height="20" indeterminate :active="loading"></v-progress-linear >
       </template>
@@ -127,22 +137,42 @@ function copyClipboardHost() {
       </v-card-title>
       <v-card-subtitle  color="on-primary"  v-if="pass">  {{ pass?.server?.description }}</v-card-subtitle>
       <v-card-text v-if="pass">
-        <v-chip variant="elevated" rounded="pill">{{ pass?.password }}
-          <span><v-icon
-            role="button"
-            aria-label="Copy Clipboard Password"
-            @click="copyClipboard"
-            v-if="isClipboardSupport"
-            color="primary"
-            :icon="iconClipboard"></v-icon>
-          </span>
-        </v-chip>
+        <v-container>
+        <v-row dense>
+          <v-col  cols="12" md="6" >
+              <v-text-field   label="Login" prepend-inner-icon="mdi-account" v-model="pass.user" readonly variant="outlined"
+                 @click="copyClipboardLogin">
+               <template v-slot:append-inner>
+                  <v-icon
+                    v-if="isClipboardSupport"
+                    :icon="iconClipboardLogin"
+                  />
+                </template>
+              </v-text-field>
+          </v-col>
+          <v-col  cols="12" md="6">
+              <v-text-field   label="Password"  prepend-inner-icon="mdi-lock" v-model="pass.password" readonly variant="outlined"
+                               @click="copyClipboardPassword">
+                <template v-slot:append-inner>
+                  <v-icon
+                    v-if="isClipboardSupport"
+                    :icon="iconClipboard"
+                  />
+                </template>
+              </v-text-field>
+          </v-col>
+
+        </v-row>
+
+
+
         <v-chip variant="elevated" rounded="pill">
           Fin: {{ validityHuman }}
         </v-chip>
         <v-chip variant="elevated" rounded="pill">
           Fin: {{ validityAgo }}
         </v-chip>
+        </v-container>
       </v-card-text>
       <v-card-actions v-if="pass">
 <!--        <v-switch-->
