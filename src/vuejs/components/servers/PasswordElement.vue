@@ -125,21 +125,25 @@ function copyClipboardPassword() {
         <v-progress-linear  color="green-lighten-3"  height="20" indeterminate :active="loading"></v-progress-linear >
       </template>
       <v-card-title color="on-primary">
-
-<!--        <span style="padding: 5px">-->
-<!--          <v-icon :icon="pass?.icon"  v-if="pass?.icon"></v-icon>-->
-<!--          <v-icon icon="mdi-server"    v-else></v-icon>-->
-<!--        </span>-->
-        <span>{{ pass?.host }}</span>
-        <span v-if="pass" style="padding: 10px">
-          <v-icon
-            role="button"
-            aria-label="Copy Clipboard Host"
-            @click="copyClipboardHost"
-            v-if="isClipboardSupport"
-            color="primary"
-            :icon="iconClipboardHost"></v-icon>
-        </span>
+        <span v-if="pass">
+            <span style="padding: 5px">
+              <v-icon :icon="pass?.server?.icon"  v-if="pass?.server?.icon"></v-icon>
+              <v-icon icon="mdi-server"    v-else></v-icon>
+            </span>
+            <span>{{ pass?.server?.name }}</span>
+            <span>
+                (<span> {{ pass?.host }}</span>
+              <span  style="padding: 5px">
+                <v-icon
+                  role="button"
+                  aria-label="Copy Clipboard Host"
+                  @click="copyClipboardHost"
+                  v-if="isClipboardSupport"
+                  color="primary"
+                  :icon="iconClipboardHost"></v-icon>
+              </span>)
+            </span>
+          </span>
       </v-card-title>
       <v-card-subtitle  color="on-primary"  v-if="pass">  {{ pass?.server?.description }}</v-card-subtitle>
       <v-card-text v-if="pass">
