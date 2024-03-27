@@ -6,10 +6,15 @@ FROM mcr.microsoft.com/powershell:latest
 EXPOSE 8000
 WORKDIR /usr/lib/cgi-bin/
 
+ENV TZ="Europe/Paris"
+# Set timezone:
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+
 # Installer Python pour le serveur HTTP
 RUN apt-get update && apt-get upgrade -y \
- && apt-get install -y curl mkcert  \
-                       apache2 \
+ && apt-get install -y  \
+                       curl tzdata mkcert  \
+                       apache2  \
                        libapache2-mod-fcgid
 
 RUN a2enmod http2 ssl unique_id cgi fcgid authnz_fcgi

@@ -37,9 +37,9 @@ services:
     environment:
       TZ: "Europe/Paris"
     volumes:
-      - "/etc/timezone:/etc/timezone:ro"
-      - "/etc/localtime:/etc/localtime:ro"
-      - "./resources/cgi-bin/password.ps1:/cgi-bin/password.ps1"
+      #      - "/etc/timezone:/etc/timezone:ro"
+      # - "/etc/localtime:/etc/localtime:ro"
+      - "./resources/cgi-bin/password.ps1:/usr/lib/cgi-bin/password.ps1"
     networks:
       - app-network
 

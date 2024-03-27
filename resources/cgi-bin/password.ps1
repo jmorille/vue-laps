@@ -4,22 +4,23 @@
 
 $CONTENT_TYPE_JSON = "Content-type: application/json"
 
-# Vérifie si un paramètre est fourni
-if ([string]::IsNullOrEmpty($env:QUERY_STRING)) {
-    Write-Output $CONTENT_TYPE_JSON
-    Write-Output ""
-    Write-Output "{""error"": ""Aucun paramètre fourni.""}"
-    exit 1
-}
 # Récupère le paramètre passé en URL
 #$HOSTNAME = $args
 $HOSTNAME = $env:QUERY_STRING
 #$cle, $HOSTNAME =  $env:QUERY_STRING.Split('=')
 
+# Vérifie si un paramètre est fourni
+if ([string]::IsNullOrEmpty($HOSTNAME)) {
+    Write-Output $CONTENT_TYPE_JSON
+    Write-Output ""
+    Write-Output "{""error"": ""No parameter Aucun paramètre fourni.""}"
+    exit 1
+}
+
 
 
 # Génère la date actuelle
-$nbMinutes = Get-Random -Minimum 125 -Maximum 141
+$nbMinutes = Get-Random -Minimum 5 -Maximum 21
 $DATE = (Get-Date).AddMinutes($nbMinutes).ToString("s")
 $HOST_PASSWORD = -join ((65..90) + (97..122) + (48..57) | Get-Random -Count 25 | ForEach-Object {[char]$_})
 
