@@ -103,7 +103,7 @@
       </div>
 
     <v-snackbar v-model="snackbar" :timeout="timeout"  color="success" location="right bottom"
-                variant="tonal" elevation="24" rounded="pill" class="ma-2">
+                variant="tonal" class="elevation-24 ma-2" rounded="pill" >
       {{ $t('notify.refreshMs', { durationMs: refreshDuration }) }}
     </v-snackbar>
   </v-container>

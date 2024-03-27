@@ -31,8 +31,6 @@ onMounted(() => {
   });
 });
 
-// Autocomplete
-const serverHost = computed( () => serverList.value.map( server => server.host));
 
 // Config
 const hostnameList = ref([]);
@@ -49,12 +47,24 @@ const hostnameList = ref([]);
                   :label="t('input.hostName')"
                   variant="underlined"
                   v-model="hostnameList"
-                  :items="serverHost"
+                  :items="serverList"
+                  item-title="host"
+                  item-value="host"
                   density="comfortable"
                   chips
                   closable-chips
                   multiple
                   >
+
+
+      <template v-slot:item="{ props, item }">
+        <v-list-item
+          v-bind="props"
+          prepend-avatar="mdi-server-network"
+          :subtitle="item.raw.description"
+          :title="item.raw.host"
+        ></v-list-item>
+      </template>
     </v-autocomplete>
 
     <v-alert type="error" title="Query error" v-if="store.error">{{ store.error }}</v-alert>
@@ -63,7 +73,7 @@ const hostnameList = ref([]);
     </div>
 
     <v-snackbar v-model="snackbar" :timeout="timeout"  color="success" location="right bottom"
-                variant="tonal" elevation="24" rounded="pill" class="ma-2">
+                variant="tonal" class="elevation-24 ma-2" rounded="pill" >
       {{ $t('notify.refreshMs', { durationMs: refreshDuration }) }}
     </v-snackbar>
   </v-container>
