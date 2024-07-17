@@ -33,9 +33,13 @@ const iconClipboard = computed(() => (copied.value ? 'mdi-clipboard-check-outlin
 const iconClipboardHost = computed(() => (copiedHost.value ? 'mdi-clipboard-check-outline' : 'mdi-clipboard-outline'));
 const iconClipboardLogin = computed(() => (copiedLogin.value ? 'mdi-clipboard-check-outline' : 'mdi-clipboard-outline'));
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
+ 
 const props = defineProps({
-  host: String,
+  host: {
+    type: String,
+    required: false,
+    default: undefined
+  },
 });
 
 
@@ -116,94 +120,143 @@ function copyClipboardPassword() {
 
 <template>
   <v-container>
-
-    <v-alert type="error" title="Query error" v-if="error">{{ error }}</v-alert>
-    <v-card :id="pass?.host" variant="tonal"  v-else>
-
-
-      <template v-slot:loader>
-        <v-progress-linear  color="green-lighten-3"  height="20" indeterminate :active="loading"></v-progress-linear >
+    <v-alert
+      v-if="error"
+      type="error"
+      title="Query error"
+    >
+      {{ error }}
+    </v-alert>
+    <v-card
+      v-else
+      :id="pass?.host"
+      variant="tonal"
+    >
+      <template #loader>
+        <v-progress-linear
+          color="green-lighten-3"
+          height="20"
+          indeterminate
+          :active="loading"
+        />
       </template>
       <v-card-title color="on-primary">
         <span v-if="pass">
-            <span style="padding: 5px">
-              <v-icon :icon="pass?.server?.icon"  v-if="pass?.server?.icon"></v-icon>
-              <v-icon icon="mdi-server"    v-else></v-icon>
-            </span>
-            <span>{{ pass?.server?.name }}</span>
-            <span>
-                (<span> {{ pass?.host }}</span>
-              <span  style="padding: 5px">
-                <v-icon
-                  role="button"
-                  aria-label="Copy Clipboard Host"
-                  @click="copyClipboardHost"
-                  v-if="isClipboardSupport"
-                  color="primary"
-                  :icon="iconClipboardHost"></v-icon>
-              </span>)
-            </span>
+          <span style="padding: 5px">
+            <v-icon
+              v-if="pass?.server?.icon"
+              :icon="pass?.server?.icon"
+            />
+            <v-icon
+              v-else
+              icon="mdi-server"
+            />
           </span>
+          <span>{{ pass?.server?.name }}</span>
+          <span>
+            (<span> {{ pass?.host }}</span>
+            <span style="padding: 5px">
+              <v-icon
+                v-if="isClipboardSupport"
+                role="button"
+                aria-label="Copy Clipboard Host"
+                color="primary"
+                :icon="iconClipboardHost"
+                @click="copyClipboardHost"
+              />
+            </span>)
+          </span>
+        </span>
       </v-card-title>
-      <v-card-subtitle  color="on-primary"  v-if="pass">  {{ pass?.server?.description }}</v-card-subtitle>
+      <v-card-subtitle
+        v-if="pass"
+        color="on-primary"
+      >
+        {{ pass?.server?.description }}
+      </v-card-subtitle>
       <v-card-text v-if="pass">
         <v-container>
-        <v-row dense>
-          <v-col  cols="12" md="6" >
-              <v-text-field   label="Login" prepend-inner-icon="mdi-account" v-model="pass.user" readonly variant="outlined"
-                 @click="copyClipboardLogin">
-               <template v-slot:append-inner>
+          <v-row dense>
+            <v-col
+              cols="12"
+              md="6"
+            >
+              <v-text-field
+                v-model="pass.user"
+                label="Login"
+                prepend-inner-icon="mdi-account"
+                readonly
+                variant="outlined"
+                @click="copyClipboardLogin"
+              >
+                <template #append-inner>
                   <v-icon
                     v-if="isClipboardSupport"
                     :icon="iconClipboardLogin"
                   />
                 </template>
               </v-text-field>
-          </v-col>
-          <v-col  cols="12" md="6">
-              <v-text-field   label="Password"  prepend-inner-icon="mdi-lock" v-model="pass.password" readonly variant="outlined"
-                               @click="copyClipboardPassword">
-                <template v-slot:append-inner>
+            </v-col>
+            <v-col
+              cols="12"
+              md="6"
+            >
+              <v-text-field
+                v-model="pass.password"
+                label="Password"
+                prepend-inner-icon="mdi-lock"
+                readonly
+                variant="outlined"
+                @click="copyClipboardPassword"
+              >
+                <template #append-inner>
                   <v-icon
                     v-if="isClipboardSupport"
                     :icon="iconClipboard"
                   />
                 </template>
               </v-text-field>
-          </v-col>
-
-        </v-row>
-
+            </v-col>
+          </v-row>
 
 
-        <v-chip variant="elevated" rounded="pill">
-          Fin: {{ validityHuman }}
-        </v-chip>
-        <v-chip variant="elevated" rounded="pill">
-          Fin: {{ validityAgo }}
-        </v-chip>
+
+          <v-chip
+            variant="elevated"
+            rounded="pill"
+          >
+            Fin: {{ validityHuman }}
+          </v-chip>
+          <v-chip
+            variant="elevated"
+            rounded="pill"
+          >
+            Fin: {{ validityAgo }}
+          </v-chip>
         </v-container>
       </v-card-text>
       <v-card-actions v-if="pass">
-<!--        <v-switch-->
-<!--          v-model="autoUpdate"-->
-<!--          :disabled="isUpdating"-->
-<!--          class="mt-0 ms-2"-->
-<!--          color="green-lighten-2"-->
-<!--          density="compact"-->
-<!--          label="Auto Update"-->
-<!--          hide-details-->
-<!--        ></v-switch>-->
+        <!--        <v-switch-->
+        <!--          v-model="autoUpdate"-->
+        <!--          :disabled="isUpdating"-->
+        <!--          class="mt-0 ms-2"-->
+        <!--          color="green-lighten-2"-->
+        <!--          density="compact"-->
+        <!--          label="Auto Update"-->
+        <!--          hide-details-->
+        <!--        ></v-switch>-->
 
-<!--        <v-spacer></v-spacer>-->
+        <!--        <v-spacer></v-spacer>-->
 
         <v-btn
           :loading="loading"
           :variant="loading ? 'tonal' : undefined"
           color="blue-grey-lighten-3"
           prepend-icon="mdi-update"
-          v-on:click="refreshPassword"
-        >{{ $t('buttons.updateNow')}}</v-btn>
+          @click="refreshPassword"
+        >
+          {{ $t('buttons.updateNow') }}
+        </v-btn>
       </v-card-actions>
     </v-card>
   </v-container>

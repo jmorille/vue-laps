@@ -30,8 +30,8 @@ function keycloakTokenInterceptor(
 /**
  * Axios Error Handler
  */
-function handlerAxiosError(): (error: any) => any {
-  return (error: any) => {
+function handlerAxiosError(): (error: unknown) => unknown {
+  return (error: unknown) => {
     console.error(`Axios Error ${error}`);
     return Promise.reject(error);
   };

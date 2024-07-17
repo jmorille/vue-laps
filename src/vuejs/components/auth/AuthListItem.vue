@@ -51,16 +51,27 @@
         aria-label="Auth Profile"
         :title="fullName"
         :subtitle="auth.email"
-        v-bind:href="authAccountUrl">
-        <template v-slot:prepend>
-          <v-avatar :image="auth.avatar" aria-label="Auth Initial" v-if="auth.avatar"></v-avatar>
-          <v-avatar :color="avatarTextColor" v-else>
-            <span class="text-h5" aria-label="Auth Name">{{ avatarText }}</span>
+        :href="authAccountUrl"
+      >
+        <template #prepend>
+          <v-avatar
+            v-if="auth.avatar"
+            :image="auth.avatar"
+            aria-label="Auth Initial"
+          />
+          <v-avatar
+            v-else
+            :color="avatarTextColor"
+          >
+            <span
+              class="text-h5"
+              aria-label="Auth Name"
+            >{{ avatarText }}</span>
           </v-avatar>
         </template>
       </v-list-item>
     </v-list>
 
-    <v-divider></v-divider>
+    <v-divider />
   </template>
 </template>

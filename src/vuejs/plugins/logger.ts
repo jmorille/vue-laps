@@ -21,7 +21,6 @@ const loggerPlugin: Plugin = {
     // Config Pluling prefix
     prefix.reg(logger);
     prefix.apply(logger, prefixOptions);
-    // @ts-ignore
     app.config.globalProperties.$logger = logger.noConflict();
     app.provide('logger', logger);
   },

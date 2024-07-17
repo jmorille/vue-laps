@@ -40,58 +40,88 @@ const hostnameList = ref([]);
 </script>
 <template>
   <v-container fluid>
-    <v-progress-linear  indeterminate  v-if="loading"></v-progress-linear >
+    <v-progress-linear
+      v-if="loading"
+      indeterminate
+    />
     <v-autocomplete
-                  role="search"
-                  prepend-inner-icon="mdi-magnify"
-                  :label="t('input.hostName')"
-                  variant="underlined"
-                  v-model="hostnameList"
-                  :items="serverList"
-                  item-title="host"
-                  item-value="host"
-                  density="comfortable"
-                  chips
-                  closable-chips
-                  multiple
-                  >
-      <template v-slot:chip="{ props, item }">
+      v-model="hostnameList"
+      role="search"
+      prepend-inner-icon="mdi-magnify"
+      :label="t('input.hostName')"
+      variant="underlined"
+      :items="serverList"
+      item-title="host"
+      item-value="host"
+      density="comfortable"
+      chips
+      closable-chips
+      multiple
+    >
+      <template #chip="{ props, item }">
         <v-chip
           v-bind="props"
           :text="item.raw.name"
         >
-          <template v-slot:prepend>
-            <v-icon :icon="item.raw.icon" v-if="item.raw.icon"></v-icon>
-            <v-icon icon="mdi-server" v-else></v-icon>
+          <template #prepend>
+            <v-icon
+              v-if="item.raw.icon"
+              :icon="item.raw.icon"
+            />
+            <v-icon
+              v-else
+              icon="mdi-server"
+            />
           </template>
         </v-chip>
       </template>
 
-      <template v-slot:item="{ props, item }">
+      <template #item="{ props, item }">
         <v-list-item
           v-bind="props"
           :subtitle="item.raw.description"
         >
-
-          <template v-slot:title>
-            {{item.raw.name}} ( {{item.raw.host}} )
+          <template #title>
+            {{ item.raw.name }} ( {{ item.raw.host }} )
           </template>
 
-          <template v-slot:prepend>
-            <v-icon :icon="item.raw.icon" v-if="item.raw.icon"></v-icon>
-            <v-icon icon="mdi-server" v-else></v-icon>
+          <template #prepend>
+            <v-icon
+              v-if="item.raw.icon"
+              :icon="item.raw.icon"
+            />
+            <v-icon
+              v-else
+              icon="mdi-server"
+            />
           </template>
         </v-list-item>
       </template>
     </v-autocomplete>
 
-    <v-alert type="error" title="Query error" v-if="store.error">{{ store.error }}</v-alert>
-    <div v-for="host in hostnameList" :key="host">
-      <password-element :host="host" ></password-element>
+    <v-alert
+      v-if="store.error"
+      type="error"
+      title="Query error"
+    >
+      {{ store.error }}
+    </v-alert>
+    <div
+      v-for="host in hostnameList"
+      :key="host"
+    >
+      <password-element :host="host" />
     </div>
 
-    <v-snackbar v-model="snackbar" :timeout="timeout"  color="success" location="right bottom"
-                variant="tonal" class="elevation-24 ma-2" rounded="pill" >
+    <v-snackbar
+      v-model="snackbar"
+      :timeout="timeout"
+      color="success"
+      location="right bottom"
+      variant="tonal"
+      class="elevation-24 ma-2"
+      rounded="pill"
+    >
       {{ $t('notify.refreshMs', { durationMs: refreshDuration }) }}
     </v-snackbar>
   </v-container>

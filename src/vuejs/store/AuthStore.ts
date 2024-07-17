@@ -64,10 +64,9 @@ export const useAuthStore = defineStore('auth', () => {
     profile.value = userProfile;
 
     // Avatar
-    // @ts-ignore
-    const { attributes } = userProfile;
-    if (attributes?.avatar) {
-      avatar.value = attributes.avatar[0];
+    const profileAvatar = userProfile?.attributes?.avatar;
+    if (profileAvatar) {
+        avatar.value =  Array.isArray(profileAvatar)? profileAvatar[0] as string: profileAvatar  as string;
     }
     return profile;
   }

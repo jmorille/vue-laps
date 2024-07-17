@@ -28,11 +28,23 @@
   }
 </script>
 <template>
-  <v-btn role="button" aria-label="Refresh List" variant="text" icon="mdi-refresh" @click="clickRefresh"></v-btn>
+  <v-btn
+    role="button"
+    aria-label="Refresh List"
+    variant="text"
+    icon="mdi-refresh"
+    @click="clickRefresh"
+  />
 
-  <v-snackbar v-model="snackbar" :timeout="timeout"  color="success" location="right bottom"
-              variant="tonal" class="elevation-24 ma-2" rounded="pill" >
+  <v-snackbar
+    v-model="snackbar"
+    :timeout="timeout"
+    color="success"
+    location="right bottom"
+    variant="tonal"
+    class="elevation-24 ma-2"
+    rounded="pill"
+  >
     {{ $t('notify.refreshMs', { durationMs: refreshDuration }) }}
   </v-snackbar>
-
 </template>

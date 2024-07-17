@@ -5,11 +5,21 @@
 <template>
   <v-container class="fill-height">
     <v-responsive class="d-flex align-center text-center fill-height">
-      <v-img  height="300" src="/logo.svg" alt="logo" />
+      <v-img
+        height="300"
+        src="/logo.svg"
+        alt="logo"
+      />
 
-      <div class="text-body-2 font-weight-light mb-n1" v-t="'home.welcome_to'"></div>
+      <div
+        v-t="'home.welcome_to'"
+        class="text-body-2 font-weight-light mb-n1"
+      />
 
-      <h1 class="text-h2 font-weight-bold" v-t="'app.title'"></h1>
+      <h1
+        v-t="'app.title'"
+        class="text-h2 font-weight-bold"
+      />
 
       <div class="py-14" />
     </v-responsive>

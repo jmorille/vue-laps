@@ -27,29 +27,50 @@
 <template>
   <v-app>
     <v-theme-provider>
-      <v-app-bar color="surface-darken-1" border>
-        <v-app-bar-nav-icon variant="text" @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
+      <v-app-bar
+        color="surface-darken-1"
+        border
+      >
+        <v-app-bar-nav-icon
+          variant="text"
+          @click.stop="drawer = !drawer"
+        />
 
-        <v-toolbar-title v-t="'app.title'"></v-toolbar-title>
-        <v-spacer></v-spacer>
+        <v-toolbar-title v-t="'app.title'" />
+        <v-spacer />
 
-        <router-view name="appbar"></router-view>
-        <v-btn variant="text" :icon="darkLightIcon" @click="toggleTheme"></v-btn>
+        <router-view name="appbar" />
+        <v-btn
+          variant="text"
+          :icon="darkLightIcon"
+          @click="toggleTheme"
+        />
 
-        <v-btn variant="text" icon="mdi-dots-vertical" id="menu-dots-vertical-activator"></v-btn>
+        <v-btn
+          id="menu-dots-vertical-activator"
+          variant="text"
+          icon="mdi-dots-vertical"
+        />
         <v-menu activator="#menu-dots-vertical-activator">
           <v-list>
-            <v-list-item prepend-icon="mdi-logout" v-bind:href="authLogoutUrl" v-if="auth.isAuthenticated">
-              <template v-slot:title>
-                <div v-t="'app.logout'"></div>
+            <v-list-item
+              v-if="auth.isAuthenticated"
+              prepend-icon="mdi-logout"
+              :href="authLogoutUrl"
+            >
+              <template #title>
+                <div v-t="'app.logout'" />
               </template>
             </v-list-item>
           </v-list>
         </v-menu>
       </v-app-bar>
 
-      <v-navigation-drawer v-model="drawer" color="surface">
-        <default-nav-menu></default-nav-menu>
+      <v-navigation-drawer
+        v-model="drawer"
+        color="surface"
+      >
+        <default-nav-menu />
       </v-navigation-drawer>
 
       <v-main>

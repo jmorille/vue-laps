@@ -36,30 +36,56 @@
 <template>
   <v-container class="fill-height">
     <v-responsive class="d-flex align-center text-center fill-height">
-      <v-img  height="300" src="/logo.svg" alt="logo" />
-      <div class="text-body-2 font-weight-light mb-n1" v-t="'home.welcome_to'"></div>
+      <v-img
+        height="300"
+        src="/logo.svg"
+        alt="logo"
+      />
+      <div
+        v-t="'home.welcome_to'"
+        class="text-body-2 font-weight-light mb-n1"
+      />
 
-      <h1 class="text-h2 font-weight-bold" v-t="'app.title'"></h1>
+      <h1
+        v-t="'app.title'"
+        class="text-h2 font-weight-bold"
+      />
 
       <div class="py-5" />
 
       <v-row class="d-flex align-center justify-center">
-        <v-col cols="auto"> <v-btn color="primary"> Primary </v-btn> </v-col>
         <v-col cols="auto">
-          <v-btn color="secondary"> Secondary </v-btn>
+          <v-btn color="primary">
+            Primary
+          </v-btn>
         </v-col>
-        <v-col cols="auto"> <v-btn color="error"> Error </v-btn> </v-col>
+        <v-col cols="auto">
+          <v-btn color="secondary">
+            Secondary
+          </v-btn>
+        </v-col>
+        <v-col cols="auto">
+          <v-btn color="error">
+            Error
+          </v-btn>
+        </v-col>
       </v-row>
 
       <v-row class="d-flex align-center justify-center">
         <v-col cols="auto">
-          <v-btn color="info"> Info </v-btn>
+          <v-btn color="info">
+            Info
+          </v-btn>
         </v-col>
         <v-col cols="auto">
-          <v-btn color="success"> Success </v-btn>
+          <v-btn color="success">
+            Success
+          </v-btn>
         </v-col>
         <v-col cols="auto">
-          <v-btn color="warning"> Warning </v-btn>
+          <v-btn color="warning">
+            Warning
+          </v-btn>
         </v-col>
       </v-row>
 
@@ -74,10 +100,11 @@
       <v-row class="d-flex align-center justify-center">
         <v-col cols="4">
           <v-select
-            label="Select Theme"
             v-model="selectedTheme"
+            label="Select Theme"
             :items="myThemes"
-            @update:modelValue="setTheme()"></v-select>
+            @update:model-value="setTheme()"
+          />
         </v-col>
       </v-row>
     </v-responsive>

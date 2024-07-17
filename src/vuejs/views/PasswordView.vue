@@ -31,9 +31,7 @@ onMounted(() => {
 
 </script>
 <template>
-
-
   <v-container fluid>
-    <password-element :host="hostnameLocal"></password-element>
+    <password-element :host="hostnameLocal" />
   </v-container>
 </template>

@@ -5,7 +5,7 @@ import type {KeycloakInitOptions} from "@dsb-norge/vue-keycloak-js/dist/types";
  * Keycloak Configuration Flow
  */
 export const keycloakInitOptions: KeycloakInitOptions = {
-    useNonce: true,
+    useNonce: false,
     flow: 'standard', // default
     checkLoginIframe: false, // default
     onLoad: 'login-required', // 'check-sso', //

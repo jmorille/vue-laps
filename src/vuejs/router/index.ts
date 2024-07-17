@@ -112,7 +112,6 @@ const routes: RouteRecordRaw[] = [
 ];
 
 const router = createRouter({
-  // @ts-ignore
   history: createWebHistory(process.env.BASE_URL),
   routes,
 });
@@ -128,7 +127,7 @@ router.beforeEach((to) => {
       const isAuthenticated = keycloak.authenticated;
       if (!isAuthenticated ) {
         //logger.info(`[rooter] isAuthenticated=${isAuthenticated} to=${to.path}`);
-        // @ts-ignore
+
         if (keycloak.createLoginUrl) {
           const redirectUri = window.location.origin + to.path;
           const keycloakLoginUrl =  keycloak.createLoginUrl({ redirectUri });
