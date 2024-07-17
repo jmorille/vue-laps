@@ -18,6 +18,10 @@ export const usePasswordStore = defineStore('password', () => {
 
 
 
+  /**
+   * Fetches the list of servers from the server password endpoint.
+   * @returns {Promise<ServerVO[]>} A promise that resolves to an array of ServerVO objects.
+   */
     function fetchServerList(): Promise<ServerVO[]> {
         logger.info(`GET Server List for password`);
         return axios.get(`/api/server-password.json`,  { withCredentials: true } )
