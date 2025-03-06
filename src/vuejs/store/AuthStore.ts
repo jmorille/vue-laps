@@ -7,7 +7,8 @@ import VueKeyCloak from '@dsb-norge/vue-keycloak-js';
 import type { Ref } from 'vue';
 import type { KeycloakProfile } from 'keycloak-js';
 import type { Logger, RootLogger } from 'loglevel';
-import type { KeycloakError, VueKeycloakInstance } from '@dsb-norge/vue-keycloak-js/dist/types';
+import type {  VueKeycloakInstance } from '@dsb-norge/vue-keycloak-js';
+import type { KeycloakError, KeycloakProfile } from 'keycloak-js/lib/keycloak';
 
 // Constant
 const keycloakSymbol = VueKeyCloak.KeycloakSymbol;
@@ -15,16 +16,13 @@ const keycloakSymbol = VueKeyCloak.KeycloakSymbol;
 export const useAuthStore = defineStore('auth', () => {
   const logger: Logger = (inject('logger') as RootLogger).getLogger('AuthStore');
 
-  const {
-    keycloak,
-    authenticated: isAuthenticated,
-    userName: username,
-  } = toRefs(inject(keycloakSymbol) as VueKeycloakInstance);
-
+  const keycloak: VueKeycloakInstance = useKeycloak(); 
   // User Profile
   const profile: Ref<KeycloakProfile | undefined> = ref();
 
   // Config Computed
+  const isAuthenticated = computed(() => keycloak!.authenticated);
+  const username = computed(() => keycloak!.userName);
   const authAccountUrl = computed(() => keycloak?.value?.createAccountUrl());
   const authLogoutUrl = computed(() => keycloak?.value?.createLogoutUrl());
   const isAuthenticatedUser = computed(() => keycloak?.value?.hasResourceRole('user'));

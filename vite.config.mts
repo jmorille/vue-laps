@@ -4,7 +4,6 @@ import path from "path";
 import { defineConfig, splitVendorChunkPlugin } from "vite";
 import vue from "@vitejs/plugin-vue";
 import { VitePWA } from 'vite-plugin-pwa';
-import vueJsx from "@vitejs/plugin-vue-jsx";
 import vuetify from "vite-plugin-vuetify";
 import VueI18nPlugin  from "@intlify/unplugin-vue-i18n/vite";
 
@@ -15,7 +14,6 @@ export default defineConfig({
     vuetify({
       autoImport: true,
     }),
-    vueJsx(),
     VueI18nPlugin ({
       // locale messages resource pre-compile option
       // https://vue-i18n.intlify.dev/guide/advanced/optimization.html
