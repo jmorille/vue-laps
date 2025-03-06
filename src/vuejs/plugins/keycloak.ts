@@ -2,20 +2,19 @@
 import VueKeycloakJs from '@dsb-norge/vue-keycloak-js';
 
 // Config
-import type Keycloak from 'keycloak-js';
 import { configAxiosInterceptor } from '@/plugins/vueAxios';
+import {keycloakInitOptions} from "@/plugins/config";  
 
 // Types
+import type Keycloak from 'keycloak-js/lib/keycloak';
+import type {  KeycloakError } from 'keycloak-js/lib/keycloak';
 import type { App } from 'vue';
 import type {
-  KeycloakError,
   VueKeycloakInstance,
   VueKeycloakOptions,
-} from '@dsb-norge/vue-keycloak-js/dist/types';
+} from '@dsb-norge/vue-keycloak-js';
 
 
-// Keycloak Configuration Flow
-import {keycloakInitOptions} from "@/plugins/config";
 
 /**
  *

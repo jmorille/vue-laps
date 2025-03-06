@@ -3,7 +3,7 @@ import axios from 'axios';
 // Types
 import type { App } from 'vue';
 import type { InternalAxiosRequestConfig } from 'axios';
-import type { VueKeycloakInstance } from '@dsb-norge/vue-keycloak-js/dist/types';
+import type { VueKeycloakInstance } from '@dsb-norge/vue-keycloak-js';
 
 // Config Global
 //axios.defaults.withCredentials = true;

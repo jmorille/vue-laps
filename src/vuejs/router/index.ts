@@ -1,17 +1,12 @@
 // Composables
 import {createRouter, createWebHistory} from 'vue-router';
 
-import {inject} from "vue";
-import VueKeyCloak from "@dsb-norge/vue-keycloak-js";
+import { useKeycloak } from '@dsb-norge/vue-keycloak-js';
 
-// Type
-//import type {Logger, RootLogger} from "loglevel";
-import type { VueKeycloakInstance } from "@dsb-norge/vue-keycloak-js/dist/types";
-import type { RouteRecordRaw } from 'vue-router';
-
-// Constant
-const keycloakSymbol = VueKeyCloak.KeycloakSymbol;
-
+// Type 
+import type { VueKeycloakInstance } from "@dsb-norge/vue-keycloak-js";
+import type { RouteRecordRaw } from 'vue-router'; 
+ 
 
 const routes: RouteRecordRaw[] = [
 
@@ -122,17 +117,19 @@ const router = createRouter({
  */
 router.beforeEach((to) => {
   if (!to.meta.allowAnonymous ) {
-      //const logger: Logger = (inject('logger') as RootLogger).getLogger('Router');
-      const keycloak = inject(keycloakSymbol) as VueKeycloakInstance;
-      const isAuthenticated = keycloak.authenticated;
+    // const logger: Logger = createLogger('Router');
+      const keycloak = useKeycloak() as VueKeycloakInstance;
+      const isAuthenticated = (!keycloak) ? false : keycloak.authenticated;
       if (!isAuthenticated ) {
         //logger.info(`[rooter] isAuthenticated=${isAuthenticated} to=${to.path}`);
 
         if (keycloak.createLoginUrl) {
           const redirectUri = window.location.origin + to.path;
-          const keycloakLoginUrl =  keycloak.createLoginUrl({ redirectUri });
-          //logger.info(`Redirect To=${redirectUri} with=${keycloakLoginUrl}`);
-          window.location.replace(keycloakLoginUrl);
+          keycloak.createLoginUrl({ redirectUri })
+            .then( (keycloakLoginUrl:string) => {
+              //logger.info(`Redirect To=${redirectUri} with=${keycloakLoginUrl}`);
+              window.location.replace(keycloakLoginUrl);
+            });
         } else {
           // This should never occur
           //logger.error(`No createLoginUrl: Keycloak ready=${keycloak.ready}`);

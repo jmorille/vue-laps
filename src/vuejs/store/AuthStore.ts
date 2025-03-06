@@ -1,33 +1,28 @@
 // Libs
 import { defineStore } from 'pinia';
-import { computed, inject, ref, toRefs, watch } from 'vue';
-import VueKeyCloak from '@dsb-norge/vue-keycloak-js';
+import { computed, inject, ref,  watch } from 'vue';
 
+import { useKeycloak  } from '@dsb-norge/vue-keycloak-js';
 // Type
 import type { Ref } from 'vue';
-import type { KeycloakProfile } from 'keycloak-js';
 import type { Logger, RootLogger } from 'loglevel';
 import type {  VueKeycloakInstance } from '@dsb-norge/vue-keycloak-js';
 import type { KeycloakError, KeycloakProfile } from 'keycloak-js/lib/keycloak';
 
-// Constant
-const keycloakSymbol = VueKeyCloak.KeycloakSymbol;
-
 export const useAuthStore = defineStore('auth', () => {
   const logger: Logger = (inject('logger') as RootLogger).getLogger('AuthStore');
 
-  const keycloak: VueKeycloakInstance = useKeycloak(); 
+  const keycloak: VueKeycloakInstance  = useKeycloak()!;
   // User Profile
   const profile: Ref<KeycloakProfile | undefined> = ref();
 
   // Config Computed
   const isAuthenticated = computed(() => keycloak!.authenticated);
-  const username = computed(() => keycloak!.userName);
-  const authAccountUrl = computed(() => keycloak?.value?.createAccountUrl());
-  const authLogoutUrl = computed(() => keycloak?.value?.createLogoutUrl());
-  const isAuthenticatedUser = computed(() => keycloak?.value?.hasResourceRole('user'));
-
-  const isAuthenticatedAdmin = computed(() => keycloak?.value?.hasResourceRole('admin'));
+  const username = computed(() => keycloak?.userName);
+  const authAccountUrl = computed(() =>  keycloak && keycloak.createAccountUrl  ? keycloak.createAccountUrl():  '');
+  const authLogoutUrl = computed(() => keycloak && keycloak.createLogoutUrl  ? keycloak.createLogoutUrl() :  '');
+  const hasRoleUser = computed(() => keycloak && keycloak.hasResourceRole  ? keycloak.hasResourceRole('user'): false);
+  const hasRoleAdmin = computed(() => keycloak && keycloak.hasResourceRole ? keycloak.hasResourceRole('admin'): false);
 
   // Profile Computed Data
   const email = computed(() => profile.value?.email);
@@ -48,18 +43,17 @@ export const useAuthStore = defineStore('auth', () => {
 
   // Acount http://keycloak.localhost/realms/intranet/account/#/
   async function getUserProfile() {
-    if (!keycloak?.value) {
+    if (!keycloak || !keycloak.authenticated || !keycloak.loadUserProfile) {
       avatar.value = undefined;
       profile.value = undefined;
       return undefined;
-    }
-    const userProfile: KeycloakProfile | undefined = await keycloak.value
-      .loadUserProfile()
-      .catch((err: KeycloakError) => {
-        logger.error(err);
-        return undefined;
-      });
-    profile.value = userProfile;
+    };
+    const userProfile: KeycloakProfile | undefined = await keycloak.loadUserProfile()
+    .catch((err: KeycloakError) => {
+      logger.error(err);
+      return undefined;
+    });
+  profile.value = userProfile;
 
     // Avatar
     const profileAvatar = userProfile?.attributes?.avatar;
@@ -76,7 +70,7 @@ export const useAuthStore = defineStore('auth', () => {
   return {
     authAccountUrl,
     authLogoutUrl,
-    isAuthenticated, isAuthenticatedUser, isAuthenticatedAdmin,
+    isAuthenticated, hasRoleUser, hasRoleAdmin,
     profile,
     username,
     email,

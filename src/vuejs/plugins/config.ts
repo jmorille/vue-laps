@@ -1,5 +1,5 @@
 // App Config
-import type {KeycloakInitOptions} from "@dsb-norge/vue-keycloak-js/dist/types";
+import type {  KeycloakInitOptions } from 'keycloak-js/lib/keycloak';
 
 /**
  * Keycloak Configuration Flow

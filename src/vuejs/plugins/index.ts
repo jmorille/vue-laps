@@ -8,8 +8,7 @@
 import type { App } from 'vue';
 
 // Plugins
-import registerVueI18n from '@/plugins/vueI18n';
-import registerLogger from '@/plugins/logger';
+import registerVueI18n from '@/plugins/vueI18n'; 
 import registerVueAxios from '@/plugins/vueAxios';
 import registerKeycloak from '@/plugins/keycloak';
 import registerVueRouter from "@/plugins/vueRouter";
@@ -17,7 +16,8 @@ import registerVuePinia from "@/plugins/vuePinia";
 import registerVuetify from '@/plugins/vuetify';
 
 // Type
-import type {KeycloakError} from "@dsb-norge/vue-keycloak-js/dist/types";
+import type {  KeycloakError } from 'keycloak-js/lib/keycloak';
+import registerLogger from './logger';
 
 function getPromisePlugins(app: App) {
   return Promise.resolve().then(() => {

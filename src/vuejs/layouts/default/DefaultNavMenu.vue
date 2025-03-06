@@ -7,7 +7,7 @@
   const auth = useAuthStore();
 
   // Constant
-  const isAuthenticatedUser = computed(() =>  auth.isAuthenticatedUser );
+  const hasRoleUser = computed(() =>  auth.hasRoleUser );
 
 </script>
 
@@ -30,7 +30,7 @@
     </v-list-item>
 
     <v-list-item
-      v-if="isAuthenticatedUser"
+      v-if="hasRoleUser"
       role="navigation"
       aria-label="Got to List Queue"
       prepend-icon="mdi-view-dashboard"
@@ -45,7 +45,7 @@
 
 
     <v-list-item
-      v-if="isAuthenticatedUser"
+      v-if="hasRoleUser"
       role="navigation"
       aria-label="Got to Queue"
       prepend-icon="mdi-server"
@@ -57,7 +57,7 @@
     </v-list-item>
 
     <v-list-item
-      v-if="isAuthenticatedUser"
+      v-if="hasRoleUser"
       role="navigation"
       aria-label="Go to About"
       prepend-icon="mdi-gift-open-outline"

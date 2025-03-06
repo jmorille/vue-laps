@@ -2,10 +2,18 @@
   import DefaultView from '@/layouts/default/DefaultView.vue';
   import DefaultNavMenu from '@/layouts/default/DefaultNavMenu.vue';
 
-  import { computed, ref } from 'vue';
-  import { useAuthStore } from '@/store/AuthStore';
+  // Vue
+  import { computed, ref } from 'vue'; 
+  import { useI18n } from 'vue-i18n';
+  // Store
+  import { useAuthStore } from '@/store/AuthStore'; 
   import { useUserPrefsStore } from '@/store/UserPrefsStore';
-  import { sanitizeUrl } from '@braintree/sanitize-url';
+  // Tools
+  import { sanitizeUrl } from '@braintree/sanitize-url'; 
+
+
+  // feature
+  const { t } = useI18n();
 
   // Init
   const drawer = ref(true);
@@ -58,8 +66,8 @@
               prepend-icon="mdi-logout"
               :href="authLogoutUrl"
             >
-              <template #title>
-                <div v-t="'app.logout'" />
+              <template #title> 
+                <div>{{ t('app.logout') }}</div>
               </template>
             </v-list-item>
           </v-list>
